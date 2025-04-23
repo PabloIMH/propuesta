@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Propuesta de Menú</title>
+<style>
+:root {
+    --primary-color: #ff6b6b;
+    --secondary-color: #4ecdc4;
+    --accent-color: #ffd166;
+    --text-color: #2d334a;
+    --bg-color: #f8f9fa;
+    --white: #ffffff;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: "Poppins", sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+  }
+  
+  .container {
+    width: 100%;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+  
+  /* Landing Page Styles */
+  .landing-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .content {
+    text-align: center;
+    z-index: 10;
+    animation: fadeIn 1.5s ease-in-out;
+  }
+  
+  .title {
+    font-family: "Playfair Display", serif;
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    position: relative;
+    display: inline-block;
+  }
+  
+  .title::after {
+    content: "";
+    position: absolute;
+    width: 50%;
+    height: 4px;
+    background-color: var(--primary-color);
+    bottom: -10px;
+    left: 25%;
+    border-radius: 2px;
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+    opacity: 0.8;
+  }
+  
+  .btn-ver-menu {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+  }
+  
+  .btn-ver-menu:hover {
+    background-color: #ff5252;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+  }
+  
+  .decoration {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  
+  .circle {
+    position: absolute;
+    border-radius: 50%;
+  }
+  
+  .circle-1 {
+    width: 300px;
+    height: 300px;
+    background-color: rgba(255, 107, 107, 0.1);
+    top: -100px;
+    right: -100px;
+    animation: float 8s infinite ease-in-out;
+  }
+  
+  .circle-2 {
+    width: 200px;
+    height: 200px;
+    background-color: rgba(78, 205, 196, 0.1);
+    bottom: -50px;
+    left: -50px;
+    animation: float 10s infinite ease-in-out reverse;
+  }
+  
+  .circle-3 {
+    width: 150px;
+    height: 150px;
+    background-color: rgba(255, 209, 102, 0.1);
+    top: 50%;
+    left: 10%;
+    animation: float 12s infinite ease-in-out;
+  }
+  
+  /* Menu Page Styles */
+  .menu-page {
+    padding-top: 3rem;
+  }
+  
+  header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+  
+  header h1 {
+    font-family: "Playfair Display", serif;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    position: relative;
+    display: inline-block;
+  }
+  
+  header h1::after {
+    content: "";
+    position: absolute;
+    width: 50%;
+    height: 4px;
+    background-color: var(--primary-color);
+    bottom: -10px;
+    left: 25%;
+    border-radius: 2px;
+  }
+  
+  .btn-volver {
+    display: inline-block;
+    background-color: var(--secondary-color);
+    color: var(--white);
+    text-decoration: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+  }
+  
+  .btn-volver:hover {
+    background-color: #3dbeb5;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4);
+  }
+  
+  .menu-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .menu-item {
+    background-color: var(--white);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in-out forwards;
+    animation-delay: calc(var(--i, 0) * 0.1s);
+  }
+  
+  .menu-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  .menu-icon {
+    font-size: 2.5rem;
+    margin-right: 1rem;
+    background-color: rgba(255, 107, 107, 0.1);
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+  
+  .menu-content h2 {
+    font-family: "Playfair Display", serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+  }
+  
+  .menu-content p {
+    color: var(--text-color);
+    opacity: 0.7;
+    font-size: 0.9rem;
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .title {
+      font-size: 3rem;
+    }
+  
+    .menu-container {
+      grid-template-columns: 1fr;
+    }
+  
+    .menu-item {
+      max-width: 100%;
+    }
+  }
+  
+  /* Set animation delays for menu items */
+  .menu-item:nth-child(1) {
+    --i: 1;
+  }
+  .menu-item:nth-child(2) {
+    --i: 2;
+  }
+  .menu-item:nth-child(3) {
+    --i: 3;
+  }
+  .menu-item:nth-child(4) {
+    --i: 4;
+  }
+  .menu-item:nth-child(5) {
+    --i: 5;
+  }
+  .menu-item:nth-child(6) {
+    --i: 6;
+  }
+  
+</style>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=Poppins:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+<style>
+    .title, .subtitle, header h1 {
+        color: white !important;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+    }
+</style><script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script></head>
+<body style="background-image: url('https://i.ibb.co/fGFLG1Rr/Chat-GPT-Image-23-abr-2025-12-37-27-p-m.png');background-size: cover; background-position: center;background-repeat: no-repeat;">
+<div class="container">
+<div class="landing-page">
+<div class="content" style="padding-top: 15vh; color: white; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">
+<h1 class="title">Propuesta de Menú</h1>
+<p class="subtitle">Leer a detalle esta hermosa invitación</p>
+<button class="btn-ver-menu" id="verMenu">Ver Menú</button>
+</div>
+<div class="decoration">
+<div class="circle circle-1"></div>
+<div class="circle circle-2"></div>
+<div class="circle circle-3"></div>
+</div>
+</div>
+</div><section id="menu" style="margin-top: 5rem;"><div class="container menu-page">
+<header>
+<h1>Nuestro Menú</h1>
+</header>
+<div class="menu-container">
+<div class="menu-item" style="--i:1;">
+<div class="menu-icon"><img alt="Papas Fritas al Disco" src="https://i.ibb.co/jkjnnV5v/fried-potatoes.png" style="width:60px;height:60px;border-radius:50%;object-fit:cover;"/></div>
+<div class="menu-content">
+<h2>Papas Fritas al Disco</h2>
+<p>Deliciosas papas fritas al disco preparadas por Krishna</p>
+</div>
+</div>
+<div class="menu-item" style="--i:2;">
+<div class="menu-icon"><img alt="Carne al Disco" src="https://i.ibb.co/gZMLFmBp/carnealdisco.jpg" style="width:60px;height:60px;border-radius:50%;object-fit:cover;"/></div>
+<div class="menu-content">
+<h2>Carne al Disco</h2>
+<p>Tomate, cebolla, pimentón, zapallo italiano</p>
+</div>
+</div>
+<div class="menu-item" style="--i:3;">
+<div class="menu-icon"><img alt="Bebidas y Jugos" src="https://i.ibb.co/F4wBQ7LJ/bebestible.jpg" style="width:60px;height:60px;border-radius:50%;object-fit:cover;"/></div>
+<div class="menu-content">
+<h2>Bebidas y Jugos</h2>
+<p>Para la hidratación 0 alcohol</p>
+</div>
+</div>
+<div class="menu-item" style="--i:4;">
+<div class="menu-icon"><img alt="Parrilla" src="https://i.ibb.co/PSGJ3jM/parrilla.webp" style="width:60px;height:60px;border-radius:50%;object-fit:cover;"/></div>
+<div class="menu-content">
+<h2>Parrilla</h2>
+<p>Rica longaniza de Chillán</p>
+</div>
+</div>
+<div class="menu-item" style="--i:5;">
+<div class="menu-icon"><img alt="Pebre" src="https://i.ibb.co/SDKKGHzT/pebre.jpg" style="width:60px;height:60px;border-radius:50%;object-fit:cover;"/></div>
+<div class="menu-content">
+<h2>Pebre</h2>
+<p>Cilantro, ají, cebolla</p>
+</div>
+</div>
+</div>
+<div style="text-align:center; margin-top: 2rem;">
+<button id="btn-invitar" style="
+        background-color: #ffd166;
+        color: #2d334a;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    ">¿Te sumas a la propuesta? Click aquí para ir a responder</button>
+</div>
+</div></section>
+<section style="text-align: center; padding: 3rem; margin-top: 2rem;"><h2 style="color: white; margin-bottom: 2rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.6);">¿Estás de acuerdo con esta propuesta?</h2><button id="btn-accept" style="background-color: #4ecdc4; color: white; padding: 1rem 2rem; border: none; border-radius: 50px; font-size: 1rem; cursor: pointer; margin: 0 1rem; transition: all 0.3s ease;">Acepto</button><button id="btn-decline" style="background-color: #ff6b6b; color: white; padding: 1rem 2rem; border: none; border-radius: 50px; font-size: 1rem; cursor: pointer; margin: 0 1rem; transition: all 0.3s ease;">Perdón a todos, no acepto</button></section><footer style="text-align: center; padding: 2rem; color: white; background-color: rgba(0,0,0,0.6);font-family: 'Poppins', sans-serif; font-size: 0.9rem; margin-top: 3rem;">Ubicación: Casa Don Tio Willy, Nueva Imperial | Fecha: Por determinar</footer>
+<script>
+document.getElementById("btn-invitar").addEventListener("click", () => {
+    const targetSection = Array.from(document.querySelectorAll("section")).find(s => s.textContent.includes("¿Estás de acuerdo con esta propuesta?"));
+    if (targetSection) {
+        targetSection.scrollIntoView({ behavior: "smooth" });
+    }
+});
+</script>
+<script>
+const declineBtn = document.getElementById("btn-decline");
+const acceptBtn = document.getElementById("btn-accept");
+
+// Hacer que el botón se aleje del cursor de forma más dinámica
+declineBtn.addEventListener("mousemove", () => {
+    const x = Math.floor(Math.random() * 300) - 150;
+    const y = Math.floor(Math.random() * 300) - 150;
+    declineBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+// Si logran hacer clic, mostrar mensaje de que no es posible
+declineBtn.addEventListener("click", () => {
+    Swal.fire({
+        title: 'Lo sentimos 😢',
+        text: 'Esta no es una opción válida. ¡Solo se puede aceptar!',
+        icon: 'error',
+        confirmButtonText: 'Entendido',
+        background: '#fff',
+        color: '#333'
+    });
+});
+
+acceptBtn.addEventListener("click", () => {
+    Swal.fire({
+        title: '¡Gracias por aceptar!',
+        text: 'Estás oficialmente invitado 🎉',
+        icon: 'success',
+        confirmButtonText: '¡Vamos allá!',
+        background: '#fff',
+        color: '#333'
+    });
+});
+</script><script>
+document.addEventListener("DOMContentLoaded", () => {
+    const btnVerMenu = document.getElementById("verMenu");
+    if (btnVerMenu) {
+        btnVerMenu.addEventListener("click", () => {
+            document.querySelector(".content").style.animation = "fadeOut 0.5s forwards";
+            setTimeout(() => {
+                document.getElementById("menu").scrollIntoView({ behavior: "smooth" });
+            }, 500);
+        });
+    }
+});
+</script></body>
+</html>
