@@ -407,16 +407,36 @@ declineBtn.addEventListener("click", () => {
     });
 });
 
-acceptBtn.addEventListener("click", () => {
-    Swal.fire({
+acceptBtn.addEventListener("click", async () => {
+    const { value: nombre } = await Swal.fire({
         title: '¡Gracias por aceptar!',
-        text: 'Estás oficialmente invitado 🎉',
-        icon: 'success',
-        confirmButtonText: '¡Vamos allá!',
-        background: '#fff',
-        color: '#333'
+        text: 'Por favor escribe tu nombre:',
+        input: 'text',
+        inputPlaceholder: 'Tu nombre',
+        confirmButtonText: 'Enviar',
+        showCancelButton: true
     });
+
+    if (nombre) {
+        await fetch("https://script.google.com/macros/s/AKfycbw4nh6CXZQJghW7T5rZpdcdPK8ZxE9TFa6pGJ1KZgtlen36J-VCJT4ZcYchCgykRjgbOA/exec", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({
+                nombre: nombre,
+                acepta: "Sí"
+            })
+        });
+
+        Swal.fire({
+            icon: 'success',
+            title: '¡Registrado!',
+            text: `Gracias ${nombre}, tu respuesta ha sido guardada.`,
+        });
+    }
 });
+
 </script><script>
 document.addEventListener("DOMContentLoaded", () => {
     const btnVerMenu = document.getElementById("verMenu");
