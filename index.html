@@ -320,9 +320,9 @@
 <div class="container">
 <div class="landing-page">
 <div class="content" style="padding-top: 15vh; color: white; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">
-<h1 class="title">Propuesta de Menú</h1>
-<p class="subtitle">Acepta la propuesta ingresando tu nombre</p>
-<p class="subtitle">Puedes ver la ubicación de Tío Willy al final de la página</p>
+<h1 class="title">Gran BINGO bailable</h1>
+<p class="subtitle">Informa tu asistencia ingresando tu nombre</p>
+<p class="subtitle"></p>
 
 <button class="btn-ver-menu" id="verMenu">Ver Menú</button>
 </div>
@@ -385,14 +385,14 @@
         cursor: pointer;
         transition: all 0.3s ease;
         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    ">¿Te sumas a la propuesta? Click aquí para ir a responder</button>
+    ">¿Te sumas a este festín? Click aquí para ir a responder</button>
 </div>
 </div></section>
 <section style="text-align: center; padding: 3rem; margin-top: 2rem;">
   <h2 style="color: white; margin-bottom: 2rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.6);">¿Estás de acuerdo con esta propuesta?</h2>
   <button id="btn-accept" style="background-color: #4ecdc4; color: white; padding: 1rem 2rem; border: none; border-radius: 50px; font-size: 1rem; cursor: pointer; margin: 0 1rem; transition: all 0.3s ease;">Acepto</button>
   <button id="btn-decline" style="background-color: #ff6b6b; color: white; padding: 1rem 2rem; border: none; border-radius: 50px; font-size: 1rem; cursor: pointer; margin: 0 1rem; transition: all 0.3s ease;">Perdón a todos, no acepto</button>
-</section><footer style="text-align: center; padding: 2rem; color: white; background-color: rgba(0,0,0,0.6);font-family: 'Poppins', sans-serif; font-size: 0.9rem; margin-top: 3rem;">Ubicación: Casa Don Tio Willy, Nueva Imperial | Fecha: Por determinar pero en horario laboral
+</section><footer style="text-align: center; padding: 2rem; color: white; background-color: rgba(0,0,0,0.6);font-family: 'Poppins', sans-serif; font-size: 0.9rem; margin-top: 3rem;">Ubicación: Casa Don Tio Willy, Nueva Imperial | Fecha: 29 de Agosto, en horario laboral
 <div style="text-align: center; margin-top: 2rem;">
   
 </div>
@@ -409,7 +409,7 @@
 </footer>
 <script>
 document.getElementById("btn-invitar").addEventListener("click", () => {
-    const targetSection = Array.from(document.querySelectorAll("section")).find(s => s.textContent.includes("¿Estás de acuerdo con esta propuesta?"));
+    const targetSection = Array.from(document.querySelectorAll("section")).find(s => s.textContent.includes("¿Estás de acuerdo con este menú?"));
     if (targetSection) {
         targetSection.scrollIntoView({ behavior: "smooth" });
     }
