@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
 <meta charset="utf-8"/>
@@ -13,6 +12,11 @@
     --text-color: #2d334a;
     --bg-color: #f8f9fa;
     --white: #ffffff;
+    --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    --gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
   }
   
   * {
@@ -79,7 +83,7 @@
   }
   
   .btn-ver-menu {
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
     color: var(--white);
     border: none;
     padding: 1rem 2rem;
@@ -88,13 +92,29 @@
     cursor: pointer;
     transition: all 0.3s ease;
     font-weight: 600;
-    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn-ver-menu::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: all 0.5s;
+  }
+  
+  .btn-ver-menu:hover::before {
+    left: 100%;
   }
   
   .btn-ver-menu:hover {
-    background-color: #ff5252;
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+    box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
   }
   
   .decoration {
@@ -112,7 +132,7 @@
   .circle-1 {
     width: 300px;
     height: 300px;
-    background-color: rgba(255, 107, 107, 0.1);
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.15), rgba(238, 90, 36, 0.1));
     top: -100px;
     right: -100px;
     animation: float 8s infinite ease-in-out;
@@ -121,7 +141,7 @@
   .circle-2 {
     width: 200px;
     height: 200px;
-    background-color: rgba(78, 205, 196, 0.1);
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.15), rgba(52, 152, 219, 0.1));
     bottom: -50px;
     left: -50px;
     animation: float 10s infinite ease-in-out reverse;
@@ -130,7 +150,7 @@
   .circle-3 {
     width: 150px;
     height: 150px;
-    background-color: rgba(255, 209, 102, 0.1);
+    background: linear-gradient(135deg, rgba(255, 209, 102, 0.15), rgba(255, 193, 7, 0.1));
     top: 50%;
     left: 10%;
     animation: float 12s infinite ease-in-out;
@@ -188,61 +208,247 @@
   
   .menu-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 3rem;
+    max-width: 1400px;
     margin: 0 auto;
+    padding: 2rem;
   }
   
+  /* Modern Card Styles */
   .menu-item {
-    background-color: var(--white);
-    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    padding: 1.5rem;
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
     opacity: 0;
-    animation: fadeIn 0.5s ease-in-out forwards;
-    animation-delay: calc(var(--i, 0) * 0.1s);
+    animation: slideInUp 0.8s ease-out forwards;
+    animation-delay: calc(var(--i, 0) * 0.2s);
+    cursor: pointer;
+    height: 420px;
+    display: flex;
+    flex-direction: column;
   }
+  
+  .menu-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: var(--item-gradient, var(--gradient-1));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .menu-item:hover::before {
+    opacity: 1;
+  }
+  
+  .menu-item:nth-child(1) { --item-gradient: var(--gradient-1); }
+  .menu-item:nth-child(2) { --item-gradient: var(--gradient-2); }
+  .menu-item:nth-child(3) { --item-gradient: var(--gradient-3); }
+  .menu-item:nth-child(4) { --item-gradient: var(--gradient-4); }
+  .menu-item:nth-child(5) { --item-gradient: var(--gradient-5); }
   
   .menu-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
   }
   
-  .menu-icon {
-    font-size: 2.5rem;
-    margin-right: 1rem;
-    background-color: rgba(255, 107, 107, 0.1);
-    width: 60px;
-    height: 60px;
+  .menu-image-container {
+    position: relative;
+    height: 240px;
+    overflow: hidden;
+    background: var(--item-gradient, var(--gradient-1));
+  }
+  
+  .menu-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+    opacity: 0.95;
+  }
+  
+  .menu-item:hover .menu-image {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+  
+  .menu-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0,0,0,0.1) 0%, transparent 40%, rgba(255,255,255,0.1) 100%);
+  }
+  
+  .menu-content {
+    padding: 1.8rem;
+    flex: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
   }
   
   .menu-content h2 {
     font-family: "Playfair Display", serif;
     font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     color: var(--text-color);
+    font-weight: 700;
+    line-height: 1.3;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.3);
   }
   
   .menu-content p {
     color: var(--text-color);
-    opacity: 0.7;
-    font-size: 0.9rem;
+    opacity: 0.85;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+    text-shadow: 0px 1px 1px rgba(255,255,255,0.2);
+  }
+  
+  .menu-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .menu-tag {
+    background: var(--item-gradient, var(--gradient-1));
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .menu-icon-modern {
+    width: 50px;
+    height: 50px;
+    background: var(--item-gradient, var(--gradient-1));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+  
+  /* Floating Action Effect */
+  .menu-item::after {
+    content: '';
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  
+  .menu-item:hover::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  /* Glassmorphism effect for special items */
+  .menu-item.premium {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+  
+  .menu-item.premium .menu-content h2 {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Button Styles */
+  .confirmation-section {
+    text-align: center;
+    padding: 4rem 2rem;
+    margin-top: 3rem;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    margin: 3rem 2rem 0;
+  }
+  
+  .confirmation-section h2 {
+    color: white;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+    font-size: 2rem;
+  }
+  
+  .btn-modern {
+    padding: 1.2rem 2.5rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin: 0 1rem;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  #btn-accept {
+    background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+    color: white;
+    box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
+  }
+  
+  #btn-accept:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(78, 205, 196, 0.6);
+  }
+  
+  #btn-decline {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+    color: white;
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+  }
+  
+  #btn-decline:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(255, 107, 107, 0.6);
   }
   
   /* Animations */
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(30px);
     }
     to {
       opacity: 1;
@@ -250,71 +456,56 @@
     }
   }
   
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(60px) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
   @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-20px);
-    }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
   }
   
   /* Responsive Styles */
   @media (max-width: 768px) {
-    .title {
-      font-size: 3rem;
-    }
-  
+    .title { font-size: 3rem; }
     .menu-container {
       grid-template-columns: 1fr;
+      gap: 2rem;
+      padding: 1rem;
     }
-  
-    .menu-item {
-      max-width: 100%;
-    }
-  }
-  
-  /* Set animation delays for menu items */
-  .menu-item:nth-child(1) {
-    --i: 1;
-  }
-  .menu-item:nth-child(2) {
-    --i: 2;
-  }
-  .menu-item:nth-child(3) {
-    --i: 3;
-  }
-  .menu-item:nth-child(4) {
-    --i: 4;
-  }
-  .menu-item:nth-child(5) {
-    --i: 5;
-  }
-  .menu-item:nth-child(6) {
-    --i: 6;
-  }
-  
-</style>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=Poppins:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
-<style>
-    .title, .subtitle, header h1 {
-        color: white !important;
-        text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-    }
-</style><script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<style>
-  @media (max-width: 600px) {
-    #btn-accept, #btn-decline {
+    .menu-item { max-width: 100%; }
+    .btn-modern {
       display: block;
       width: 80%;
       margin: 1rem auto !important;
     }
   }
+  
+  /* Set animation delays for menu items */
+  .menu-item:nth-child(1) { --i: 1; }
+  .menu-item:nth-child(2) { --i: 2; }
+  .menu-item:nth-child(3) { --i: 3; }
+  .menu-item:nth-child(4) { --i: 4; }
+  .menu-item:nth-child(5) { --i: 5; }
+  .menu-item:nth-child(6) { --i: 6; }
 </style>
-
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    .title, .subtitle, header h1 {
+        color: white !important;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+    }
+</style>
 </head>
 <body style="background-image: url('https://i.ibb.co/m5pGyW5J/Chat-GPT-Image-23-abr-2025-12-37-27-p-m.png');background-size: cover; background-position: center;background-repeat: no-repeat;">
 <div class="container">
@@ -323,7 +514,6 @@
 <h1 class="title">Gran BINGO bailable</h1>
 <p class="subtitle">Informa tu asistencia ingresando tu nombre</p>
 <p class="subtitle"></p>
-
 <button class="btn-ver-menu" id="verMenu">Ver Menú</button>
 </div>
 <div class="decoration">
@@ -332,78 +522,122 @@
 <div class="circle circle-3"></div>
 </div>
 </div>
-</div><section id="menu" style="margin-top: 5rem;"><div class="container menu-page">
+</div>
+
+<section id="menu" style="margin-top: 5rem;">
+<div class="container menu-page">
 <header>
 <h1>Menú</h1>
 </header>
 <div class="menu-container">
-<div class="menu-item" style="--i:1;">
-<div class="menu-icon"><img alt="Papas Fritas al Disco" src="https://i.ibb.co/0jZYfmGP/al-disco-papas-fritas-con-maizena-foto-principal.jpg" style="width:60px;height:60px;border-radius:50%;object-fit:cover;"/></div>
+<div class="menu-item premium">
+<div class="menu-image-container">
+<img class="menu-image" alt="Papas Fritas al Disco" src="https://i.ibb.co/0jZYfmGP/al-disco-papas-fritas-con-maizena-foto-principal.jpg"/>
+<div class="menu-overlay"></div>
+</div>
 <div class="menu-content">
 <h2>Papas Fritas al Disco</h2>
 <p>Deliciosas papas fritas al disco preparadas por Krishna</p>
+<div class="menu-footer">
+<div class="menu-tag">Especialidad</div>
+<div class="menu-icon-modern">🍟</div>
 </div>
 </div>
-<div class="menu-item" style="--i:2;">
-<div class="menu-icon"><img alt="Carne al Disco" src="https://i.ibb.co/gZMLFmBp/carnealdisco.jpg" style="width:60px;height:60px;border-radius:50%;object-fit:cover;"/></div>
+</div>
+
+<div class="menu-item">
+<div class="menu-image-container">
+<img class="menu-image" alt="Carne al Disco" src="https://i.ibb.co/gZMLFmBp/carnealdisco.jpg"/>
+<div class="menu-overlay"></div>
+</div>
 <div class="menu-content">
 <h2>Carne al Disco</h2>
-<p>Tomate, cebolla, pimentón, zapallo italiano</p>
+<p>Carne al disco con tomate, cebolla, pimentón y zapallo italiano</p>
+<div class="menu-footer">
+<div class="menu-tag">Plato Principal</div>
+<div class="menu-icon-modern">🥩</div>
 </div>
 </div>
-<div class="menu-item" style="--i:3;">
-<div class="menu-icon"><img alt="Bebidas y Jugos" src="https://i.ibb.co/F4wBQ7LJ/bebestible.jpg" style="width:60px;height:60px;border-radius:50%;object-fit:cover;"/></div>
+</div>
+
+<div class="menu-item">
+<div class="menu-image-container">
+<img class="menu-image" alt="Bebidas y Jugos" src="https://i.ibb.co/F4wBQ7LJ/bebestible.jpg"/>
+<div class="menu-overlay"></div>
+</div>
 <div class="menu-content">
 <h2>Bebidas y Jugos</h2>
-<p>Para la hidratación 0 alcohol</p>
+<p>Hidratación perfecta, 100% libres de alcohol</p>
+<div class="menu-footer">
+<div class="menu-tag">Refrescante</div>
+<div class="menu-icon-modern">🧃</div>
 </div>
 </div>
-<div class="menu-item" style="--i:4;">
-<div class="menu-icon"><img alt="Parrilla" src="https://i.ibb.co/PSGJ3jM/parrilla.webp" style="width:60px;height:60px;border-radius:50%;object-fit:cover;"/></div>
+</div>
+
+<div class="menu-item">
+<div class="menu-image-container">
+<img class="menu-image" alt="Parrilla" src="https://i.ibb.co/PSGJ3jM/parrilla.webp"/>
+<div class="menu-overlay"></div>
+</div>
 <div class="menu-content">
 <h2>Parrilla</h2>
-<p>Rica longaniza de Chillán</p>
+<p>Auténtica longaniza de Chillán</p>
+<div class="menu-footer">
+<div class="menu-tag">Tradicional</div>
+<div class="menu-icon-modern">🌭</div>
 </div>
 </div>
-<div class="menu-item" style="--i:5;">
-<div class="menu-icon"><img alt="Pebre" src="https://i.ibb.co/SDKKGHzT/pebre.jpg" style="width:60px;height:60px;border-radius:50%;object-fit:cover;"/></div>
+</div>
+
+<div class="menu-item">
+<div class="menu-image-container">
+<img class="menu-image" alt="Pebre" src="https://i.ibb.co/SDKKGHzT/pebre.jpg"/>
+<div class="menu-overlay"></div>
+</div>
 <div class="menu-content">
 <h2>Pebre</h2>
-<p>Cilantro, ají, cebolla, tomate</p>
+<p>Cilantro fresco, ají, cebolla y tomate </p>
+<div class="menu-footer">
+<div class="menu-tag">Acompañamiento</div>
+<div class="menu-icon-modern">🌶️</div>
 </div>
 </div>
 </div>
-<div style="text-align:center; margin-top: 2rem;">
 </div>
-</div></section>
-<section style="text-align: center; padding: 3rem; margin-top: 2rem;">
-  <h2 style="color: white; margin-bottom: 2rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.6);">Confirma tu asistencia aquí ⬇</h2>
-  <button id="btn-accept" style="background-color: #4ecdc4; color: white; padding: 1rem 2rem; border: none; border-radius: 50px; font-size: 1rem; cursor: pointer; margin: 0 1rem; transition: all 0.3s ease;">Confirmo</button>
-  <button id="btn-decline" style="background-color: #ff6b6b; color: white; padding: 1rem 2rem; border: none; border-radius: 50px; font-size: 1rem; cursor: pointer; margin: 0 1rem; transition: all 0.3s ease;">No tengo plata</button>
-</section><footer style="text-align: center; padding: 2rem; color: white; background-color: rgba(0,0,0,0.6);font-family: 'Poppins', sans-serif; font-size: 0.9rem; margin-top: 3rem;">Ubicación: Casa Don Willy, Nueva Imperial | Fecha: 29 de Agosto, en horario laboral
+</div>
+</section>
+
+<section class="confirmation-section">
+<h2>Confirma tu asistencia aquí ⬇</h2>
+<button id="btn-accept" class="btn-modern">Confirmo</button>
+<button id="btn-decline" class="btn-modern">No tengo plata</button>
+</section>
+
+<footer style="text-align: center; padding: 2rem; color: white; background-color: rgba(0,0,0,0.6);font-family: 'Poppins', sans-serif; font-size: 0.9rem; margin-top: 3rem;">
+Ubicación: Casa Don Willy, Nueva Imperial | Fecha: 29 de Agosto, en horario laboral
 <div style="text-align: center; margin-top: 2rem;">
-  
+<a href="https://www.google.com/maps?q=-38.750285,-72.953809" target="_blank" rel="noopener noreferrer"
+   style="background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%); color: white; padding: 1rem 2rem; border-radius: 30px;
+          text-decoration: none; font-weight: bold; display: inline-block; transition: all 0.3s ease;">
+  Ver ubicación en Google Maps
+</a>
 </div>
-
-
-<div style="text-align: center; margin-top: 2rem;">
-  <a href="https://www.google.com/maps?q=-38.750285,-72.953809" target="_blank" rel="noopener noreferrer"
-     style="background-color: #4ecdc4; color: white; padding: 1rem 2rem; border-radius: 30px;
-            text-decoration: none; font-weight: bold; display: inline-block;">
-    Ver ubicación en Google Maps
-  </a>
-</div>
-
 </footer>
+
 <script>
-document.getElementById("btn-invitar").addEventListener("click", () => {
-    const targetSection = Array.from(document.querySelectorAll("section")).find(s => s.textContent.includes("¿Estás de acuerdo con este menú?"));
-    if (targetSection) {
-        targetSection.scrollIntoView({ behavior: "smooth" });
+document.addEventListener("DOMContentLoaded", () => {
+    const btnVerMenu = document.getElementById("verMenu");
+    if (btnVerMenu) {
+        btnVerMenu.addEventListener("click", () => {
+            document.querySelector(".content").style.animation = "fadeOut 0.5s forwards";
+            setTimeout(() => {
+                document.getElementById("menu").scrollIntoView({ behavior: "smooth" });
+            }, 500);
+        });
     }
 });
-</script>
-<script>
+
 const declineBtn = document.getElementById("btn-decline");
 const acceptBtn = document.getElementById("btn-accept");
 
@@ -417,9 +651,6 @@ declineBtn.addEventListener("click", () => {
         color: '#333'
     });
 });
-
-// Hacer que el botón se aleje del cursor de forma más dinámica
-
 
 acceptBtn.addEventListener("click", async () => {
     const { value: nombre } = await Swal.fire({
@@ -450,18 +681,6 @@ acceptBtn.addEventListener("click", async () => {
         });
     }
 });
-</script><script>
-document.addEventListener("DOMContentLoaded", () => {
-    const btnVerMenu = document.getElementById("verMenu");
-    if (btnVerMenu) {
-        btnVerMenu.addEventListener("click", () => {
-            document.querySelector(".content").style.animation = "fadeOut 0.5s forwards";
-            setTimeout(() => {
-                document.getElementById("menu").scrollIntoView({ behavior: "smooth" });
-            }, 500);
-        });
-    }
-});
-</script></body>
-
+</script>
+</body>
 </html>
