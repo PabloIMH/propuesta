@@ -1,686 +1,595 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Propuesta de Menú</title>
-<style>
-:root {
-    --primary-color: #ff6b6b;
-    --secondary-color: #4ecdc4;
-    --accent-color: #ffd166;
-    --text-color: #2d334a;
-    --bg-color: #f8f9fa;
-    --white: #ffffff;
-    --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-    --gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-  }
-  
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: "Poppins", sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-  }
-  
-  .container {
-    width: 100%;
-    min-height: 100vh;
-    padding: 2rem;
-  }
-  
-  /* Landing Page Styles */
-  .landing-page {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 90vh;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .content {
-    text-align: center;
-    z-index: 10;
-    animation: fadeIn 1.5s ease-in-out;
-  }
-  
-  .title {
-    font-family: "Playfair Display", serif;
-    font-size: 4rem;
-    margin-bottom: 1rem;
-    color: var(--text-color);
-    position: relative;
-    display: inline-block;
-  }
-  
-  .title::after {
-    content: "";
-    position: absolute;
-    width: 50%;
-    height: 4px;
-    background-color: var(--primary-color);
-    bottom: -10px;
-    left: 25%;
-    border-radius: 2px;
-  }
-  
-  .subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    color: var(--text-color);
-    opacity: 0.8;
-  }
-  
-  .btn-ver-menu {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-    color: var(--white);
-    border: none;
-    padding: 1rem 2rem;
-    font-size: 1.1rem;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 600;
-    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .btn-ver-menu::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: all 0.5s;
-  }
-  
-  .btn-ver-menu:hover::before {
-    left: 100%;
-  }
-  
-  .btn-ver-menu:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
-  }
-  
-  .decoration {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-  }
-  
-  .circle {
-    position: absolute;
-    border-radius: 50%;
-  }
-  
-  .circle-1 {
-    width: 300px;
-    height: 300px;
-    background: linear-gradient(135deg, rgba(255, 107, 107, 0.15), rgba(238, 90, 36, 0.1));
-    top: -100px;
-    right: -100px;
-    animation: float 8s infinite ease-in-out;
-  }
-  
-  .circle-2 {
-    width: 200px;
-    height: 200px;
-    background: linear-gradient(135deg, rgba(78, 205, 196, 0.15), rgba(52, 152, 219, 0.1));
-    bottom: -50px;
-    left: -50px;
-    animation: float 10s infinite ease-in-out reverse;
-  }
-  
-  .circle-3 {
-    width: 150px;
-    height: 150px;
-    background: linear-gradient(135deg, rgba(255, 209, 102, 0.15), rgba(255, 193, 7, 0.1));
-    top: 50%;
-    left: 10%;
-    animation: float 12s infinite ease-in-out;
-  }
-  
-  /* Menu Page Styles */
-  .menu-page {
-    padding-top: 3rem;
-  }
-  
-  header {
-    text-align: center;
-    margin-bottom: 3rem;
-    position: relative;
-  }
-  
-  header h1 {
-    font-family: "Playfair Display", serif;
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    color: var(--text-color);
-    position: relative;
-    display: inline-block;
-  }
-  
-  header h1::after {
-    content: "";
-    position: absolute;
-    width: 50%;
-    height: 4px;
-    background-color: var(--primary-color);
-    bottom: -10px;
-    left: 25%;
-    border-radius: 2px;
-  }
-  
-  .btn-volver {
-    display: inline-block;
-    background-color: var(--secondary-color);
-    color: var(--white);
-    text-decoration: none;
-    padding: 0.7rem 1.5rem;
-    border-radius: 50px;
-    font-weight: 600;
-    margin-top: 1rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
-  }
-  
-  .btn-volver:hover {
-    background-color: #3dbeb5;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4);
-  }
-  
-  .menu-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-    gap: 3rem;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
-  
-  /* Modern Card Styles */
-  .menu-item {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 25px;
-    overflow: hidden;
-    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    opacity: 0;
-    animation: slideInUp 0.8s ease-out forwards;
-    animation-delay: calc(var(--i, 0) * 0.2s);
-    cursor: pointer;
-    height: 420px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .menu-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 6px;
-    background: var(--item-gradient, var(--gradient-1));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  
-  .menu-item:hover::before {
-    opacity: 1;
-  }
-  
-  .menu-item:nth-child(1) { --item-gradient: var(--gradient-1); }
-  .menu-item:nth-child(2) { --item-gradient: var(--gradient-2); }
-  .menu-item:nth-child(3) { --item-gradient: var(--gradient-3); }
-  .menu-item:nth-child(4) { --item-gradient: var(--gradient-4); }
-  .menu-item:nth-child(5) { --item-gradient: var(--gradient-5); }
-  
-  .menu-item:hover {
-    transform: translateY(-15px) scale(1.02);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
-  }
-  
-  .menu-image-container {
-    position: relative;
-    height: 240px;
-    overflow: hidden;
-    background: var(--item-gradient, var(--gradient-1));
-  }
-  
-  .menu-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
-    opacity: 0.95;
-  }
-  
-  .menu-item:hover .menu-image {
-    transform: scale(1.08);
-    opacity: 1;
-  }
-  
-  .menu-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(0,0,0,0.1) 0%, transparent 40%, rgba(255,255,255,0.1) 100%);
-  }
-  
-  .menu-content {
-    padding: 1.8rem;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-  }
-  
-  .menu-content h2 {
-    font-family: "Playfair Display", serif;
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: var(--text-color);
-    font-weight: 700;
-    line-height: 1.3;
-    text-shadow: 1px 1px 2px rgba(255,255,255,0.3);
-  }
-  
-  .menu-content p {
-    color: var(--text-color);
-    opacity: 0.85;
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 1.2rem;
-    text-shadow: 0px 1px 1px rgba(255,255,255,0.2);
-  }
-  
-  .menu-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .menu-tag {
-    background: var(--item-gradient, var(--gradient-1));
-    color: white;
-    padding: 0.4rem 1rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  
-  .menu-icon-modern {
-    width: 50px;
-    height: 50px;
-    background: var(--item-gradient, var(--gradient-1));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.5rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  }
-  
-  /* Floating Action Effect */
-  .menu-item::after {
-    content: '';
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 40px;
-    height: 40px;
-    background: rgba(255,255,255,0.9);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transform: scale(0.8);
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  }
-  
-  .menu-item:hover::after {
-    opacity: 1;
-    transform: scale(1);
-  }
-  
-  /* Glassmorphism effect for special items */
-  .menu-item.premium {
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-  }
-  
-  .menu-item.premium .menu-content h2 {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  /* Button Styles */
-  .confirmation-section {
-    text-align: center;
-    padding: 4rem 2rem;
-    margin-top: 3rem;
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 30px;
-    margin: 3rem 2rem 0;
-  }
-  
-  .confirmation-section h2 {
-    color: white;
-    margin-bottom: 2rem;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-    font-size: 2rem;
-  }
-  
-  .btn-modern {
-    padding: 1.2rem 2.5rem;
-    border: none;
-    border-radius: 50px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    margin: 0 1rem;
-    transition: all 0.3s ease;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  #btn-accept {
-    background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
-    color: white;
-    box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
-  }
-  
-  #btn-accept:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 35px rgba(78, 205, 196, 0.6);
-  }
-  
-  #btn-decline {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-    color: white;
-    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
-  }
-  
-  #btn-decline:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 35px rgba(255, 107, 107, 0.6);
-  }
-  
-  /* Animations */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  @keyframes slideInUp {
-    from {
-      opacity: 0;
-      transform: translateY(60px) scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-  
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-  }
-  
-  /* Responsive Styles */
-  @media (max-width: 768px) {
-    .title { font-size: 3rem; }
-    .menu-container {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      padding: 1rem;
-    }
-    .menu-item { max-width: 100%; }
-    .btn-modern {
-      display: block;
-      width: 80%;
-      margin: 1rem auto !important;
-    }
-  }
-  
-  /* Set animation delays for menu items */
-  .menu-item:nth-child(1) { --i: 1; }
-  .menu-item:nth-child(2) { --i: 2; }
-  .menu-item:nth-child(3) { --i: 3; }
-  .menu-item:nth-child(4) { --i: 4; }
-  .menu-item:nth-child(5) { --i: 5; }
-  .menu-item:nth-child(6) { --i: 6; }
-</style>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<style>
-    .title, .subtitle, header h1 {
-        color: white !important;
-        text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score Generator | Ultra Dark</title>
+    <style>
+        /* CSS: Estilo Ultra Dark/Cyberpunk */
+        :root {
+            --dark: #121212;
+            --mid-dark: #1e1e1e;
+            --neon-blue: #00ffff;
+            --neon-pink: #ff007f;
+            --text-color: #f0f0f0;
+            --border-color: #333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Consolas', 'Courier New', monospace;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--text-color);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            text-shadow: 0 0 5px var(--neon-blue);
+            color: var(--neon-blue);
+        }
+
+        /* --- Estilo de Botones y Campos --- */
+        input[type="text"], button {
+            padding: 10px;
+            border: 1px solid var(--neon-blue);
+            background-color: var(--mid-dark);
+            color: var(--text-color);
+            font-size: 1em;
+            outline: none;
+            transition: all 0.2s;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            cursor: pointer;
+            background-color: var(--neon-blue);
+            color: var(--dark);
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+        
+        /* --- ESTILO DE ALERTA PERSONALIZADA --- */
+        #custom-alert {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro semitransparente */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .custom-alert-hidden {
+            display: none !important;
+        }
+
+        .alert-content {
+            background-color: var(--mid-dark);
+            padding: 30px;
+            border-radius: 8px;
+            border: 2px solid var(--neon-pink);
+            box-shadow: 0 0 20px var(--neon-pink);
+            text-align: center;
+            max-width: 400px;
+            animation: fadeIn 0.3s;
+        }
+
+        .alert-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            color: var(--text-color);
+        }
+
+        .alert-content button {
+            background-color: var(--neon-pink);
+            color: var(--dark);
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        /* --- Contenedores Generales --- */
+        .container {
+            background-color: var(--mid-dark);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+        }
+
+        /* --- Grid Principal --- */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr; 
+            gap: 20px;
+        }
+
+        /* --- Leaderboard (Tabla de Posiciones) --- */
+        #leaderboard-container table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+
+        #leaderboard-container th, #leaderboard-container td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        #leaderboard-container th {
+            color: var(--neon-pink);
+            background-color: #2a0016; 
+        }
+
+        /* --- Panel de Control de Juego --- */
+        #game-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        #player-management {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        /* --- Selector de Jugadores y Modo --- */
+        .selection-panel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        #player-pool {
+            max-height: 250px;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            background-color: #0d0d0d;
+        }
+        
+        #player-pool label {
+            display: block;
+            padding: 5px 0;
+            cursor: pointer;
+            transition: background-color 0.1s;
+        }
+        
+        #player-pool label:hover {
+            background-color: #292929;
+        }
+        
+        #player-pool input[type="checkbox"] {
+            margin-right: 10px;
+            accent-color: var(--neon-pink); 
+        }
+
+        .mode-selector button {
+            width: 100%;
+            margin-bottom: 5px;
+        }
+        .mode-selector button.active {
+            background-color: var(--neon-pink);
+            color: var(--dark);
+            box-shadow: 0 0 10px var(--neon-pink);
+            border-color: var(--neon-pink);
+        }
+
+        /* --- Equipos Generados (Visualización Interactiva) --- */
+        #teams-display {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            min-height: 200px;
+        }
+
+        .team {
+            background-color: #0d0d0d;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid;
+            position: relative;
+        }
+
+        .team-blue { border-color: var(--neon-blue); }
+        .team-red { border-color: var(--neon-pink); }
+
+        .team h3 {
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        .team-blue h3 { color: var(--neon-blue); text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); }
+        .team-red h3 { color: var(--neon-pink); text-shadow: 0 0 5px rgba(255, 0, 127, 0.5); }
+
+        .team ul {
+            list-style: none;
+            padding: 0;
+            font-size: 1.1em;
+        }
+
+        /* --- Panel de Resultados (Score) --- */
+        #result-panel {
+            text-align: center;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .win-button-blue {
+            background-color: #004444;
+            border-color: var(--neon-blue);
+        }
+        
+        .win-button-red {
+            background-color: #440022;
+            border-color: var(--neon-pink);
+        }
+
+        .win-button-blue:hover { background-color: var(--neon-blue); color: var(--dark); }
+        .win-button-red:hover { background-color: var(--neon-pink); color: var(--dark); }
+        
+        /* Ocultar elementos por defecto */
+        #teams-display, #result-panel {
+            display: none;
+        }
+        
+        /* Loader */
+        .loader {
+            border: 5px solid #222;
+            border-top: 5px solid var(--neon-blue);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            display: none;
+            margin: 10px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Responsividad */
+        @media (max-width: 900px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
-<body style="background-image: url('https://i.ibb.co/m5pGyW5J/Chat-GPT-Image-23-abr-2025-12-37-27-p-m.png');background-size: cover; background-position: center;background-repeat: no-repeat;">
-<div class="container">
-<div class="landing-page">
-<div class="content" style="padding-top: 15vh; color: white; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">
-<h1 class="title">Gran BINGO bailable</h1>
-<p class="subtitle">Informa tu asistencia ingresando tu nombre</p>
-<p class="subtitle"></p>
-<button class="btn-ver-menu" id="verMenu">Ver Menú</button>
-</div>
-<div class="decoration">
-<div class="circle circle-1"></div>
-<div class="circle circle-2"></div>
-<div class="circle circle-3"></div>
-</div>
-</div>
-</div>
+<body>
 
-<section id="menu" style="margin-top: 5rem;">
-<div class="container menu-page">
-<header>
-<h1>Menú</h1>
-</header>
-<div class="menu-container">
-<div class="menu-item premium">
-<div class="menu-image-container">
-<img class="menu-image" alt="Papas Fritas al Disco" src="https://i.ibb.co/0jZYfmGP/al-disco-papas-fritas-con-maizena-foto-principal.jpg"/>
-<div class="menu-overlay"></div>
-</div>
-<div class="menu-content">
-<h2>Papas Fritas al Disco</h2>
-<p>Deliciosas papas fritas al disco preparadas por Krishna</p>
-<div class="menu-footer">
-<div class="menu-tag">Especialidad</div>
-<div class="menu-icon-modern">🍟</div>
-</div>
-</div>
-</div>
+    <div id="custom-alert" class="custom-alert-hidden">
+        <div class="alert-content">
+            <p id="alert-message"></p>
+            <button onclick="hideCustomAlert()">Aceptar</button>
+        </div>
+    </div>
 
-<div class="menu-item">
-<div class="menu-image-container">
-<img class="menu-image" alt="Carne al Disco" src="https://i.ibb.co/gZMLFmBp/carnealdisco.jpg"/>
-<div class="menu-overlay"></div>
-</div>
-<div class="menu-content">
-<h2>Carne al Disco</h2>
-<p>Carne al disco con tomate, cebolla, pimentón y zapallo italiano</p>
-<div class="menu-footer">
-<div class="menu-tag">Plato Principal</div>
-<div class="menu-icon-modern">🥩</div>
-</div>
-</div>
-</div>
+    <h1>🎮 LoL Team & Score Manager (DARK)</h1>
+    
+    <div class="loader" id="loader"></div>
+    
+    <div class="main-grid">
+        
+        <div id="leaderboard-container" class="container">
+            <h2>🏆 Leaderboard</h2>
+            <table>
+                <thead>
+                    <tr><th>Nick</th><th>Puntos</th></tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                    </tbody>
+            </table>
+        </div>
 
-<div class="menu-item">
-<div class="menu-image-container">
-<img class="menu-image" alt="Bebidas y Jugos" src="https://i.ibb.co/F4wBQ7LJ/bebestible.jpg"/>
-<div class="menu-overlay"></div>
-</div>
-<div class="menu-content">
-<h2>Bebidas y Jugos</h2>
-<p>Hidratación perfecta, 100% libres de alcohol</p>
-<div class="menu-footer">
-<div class="menu-tag">Refrescante</div>
-<div class="menu-icon-modern">🧃</div>
-</div>
-</div>
-</div>
+        <div id="game-controls" class="container">
+            <h2>🛠️ Control de Partidas</h2>
 
-<div class="menu-item">
-<div class="menu-image-container">
-<img class="menu-image" alt="Parrilla" src="https://i.ibb.co/PSGJ3jM/parrilla.webp"/>
-<div class="menu-overlay"></div>
-</div>
-<div class="menu-content">
-<h2>Parrilla</h2>
-<p>Auténtica longaniza de Chillán</p>
-<div class="menu-footer">
-<div class="menu-tag">Tradicional</div>
-<div class="menu-icon-modern">🌭</div>
-</div>
-</div>
-</div>
+            <div id="player-management">
+                <input type="text" id="new-nick-input" placeholder="Añadir nuevo Nick (ej: MiNombre)">
+                <button onclick="addPlayerToSheet()">Añadir Nick Permanente</button>
+            </div>
+            
+            <div class="selection-panel">
+                <div>
+                    <h3>Seleccionar Participantes</h3>
+                    <div id="player-pool">
+                        </div>
+                </div>
+                
+                <div class="mode-selector">
+                    <h3>Modo de Juego</h3>
+                    <button id="mode-3v3-btn" data-mode="3" class="active">3 vs 3 (Requiere 6)</button>
+                    <button id="mode-4v4-btn" data-mode="4">4 vs 4 (Requiere 8)</button>
+                    
+                    <p style="margin-top: 10px; font-size: 0.9em;">Jugadores Seleccionados: <strong id="selected-count">0</strong></p>
+                    
+                    <button onclick="generateTeams()" style="margin-top: 15px; background-color: var(--neon-pink);">
+                        ⚔️ Generar Equipos Aleatorios
+                    </button>
+                </div>
+            </div>
 
-<div class="menu-item">
-<div class="menu-image-container">
-<img class="menu-image" alt="Pebre" src="https://i.ibb.co/SDKKGHzT/pebre.jpg"/>
-<div class="menu-overlay"></div>
-</div>
-<div class="menu-content">
-<h2>Pebre</h2>
-<p>Cilantro fresco, ají, cebolla y tomate </p>
-<div class="menu-footer">
-<div class="menu-tag">Acompañamiento</div>
-<div class="menu-icon-modern">🌶️</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
+            <div id="teams-display">
+                <div id="team-blue" class="team team-blue">
+                    <h3>Equipo Azul</h3>
+                    <ul></ul>
+                </div>
+                <div id="team-red" class="team team-red">
+                    <h3>Equipo Rojo</h3>
+                    <ul></ul>
+                </div>
+            </div>
+            
+            <div id="result-panel">
+                <button class="win-button-blue" onclick="recordWin('blue')">Ganó Equipo AZUL (+1 Punto)</button>
+                <button class="win-button-red" onclick="recordWin('red')">Ganó Equipo ROJO (+1 Punto)</button>
+            </div>
+        </div>
+    </div>
 
-<section class="confirmation-section">
-<h2>Confirma tu asistencia aquí ⬇</h2>
-<button id="btn-accept" class="btn-modern">Confirmo</button>
-<button id="btn-decline" class="btn-modern">No tengo plata</button>
-</section>
+    <script>
+        // JS: Lógica del Cliente
+        
+        // 🚨 REEMPLAZA ESTA URL con la que copiaste al DEPLEGAR tu Apps Script
+        const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxaOOI5BXmcqpgfP4kQr-rKsv2o83disn7LMXOHx3KTqeoPZ7l-1ait2WsO0kS4-JUYSO/exec';
 
-<footer style="text-align: center; padding: 2rem; color: white; background-color: rgba(0,0,0,0.6);font-family: 'Poppins', sans-serif; font-size: 0.9rem; margin-top: 3rem;">
-Ubicación: Casa Don Willy, Nueva Imperial | Fecha: 29 de Agosto, en horario laboral
-<div style="text-align: center; margin-top: 2rem;">
-<a href="https://www.google.com/maps?q=-38.750285,-72.953809" target="_blank" rel="noopener noreferrer"
-   style="background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%); color: white; padding: 1rem 2rem; border-radius: 30px;
-          text-decoration: none; font-weight: bold; display: inline-block; transition: all 0.3s ease;">
-  Ver ubicación en Google Maps
-</a>
-</div>
-</footer>
+        let leaderboardData = [];
+        let currentMode = 3; 
+        let teamBlue = [];
+        let teamRed = [];
+        
+        const $ = (id) => document.getElementById(id);
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const btnVerMenu = document.getElementById("verMenu");
-    if (btnVerMenu) {
-        btnVerMenu.addEventListener("click", () => {
-            document.querySelector(".content").style.animation = "fadeOut 0.5s forwards";
-            setTimeout(() => {
-                document.getElementById("menu").scrollIntoView({ behavior: "smooth" });
-            }, 500);
-        });
-    }
-});
+        // --- FUNCIONES DE ALERTA PERSONALIZADA ---
+        function showCustomAlert(message) {
+            $('alert-message').textContent = message;
+            $('custom-alert').classList.remove('custom-alert-hidden');
+        }
 
-const declineBtn = document.getElementById("btn-decline");
-const acceptBtn = document.getElementById("btn-accept");
+        function hideCustomAlert() {
+            $('custom-alert').classList.add('custom-alert-hidden');
+        }
 
-declineBtn.addEventListener("click", () => {
-    Swal.fire({
-        title: 'Lo sentimos 😢',
-        text: 'Esta no es una opción válida. ¡Solo se puede aceptar!',
-        icon: 'error',
-        confirmButtonText: 'Entendido',
-        background: '#fff',
-        color: '#333'
-    });
-});
+        // --- MANEJO DE LA DATA (API) ---
 
-acceptBtn.addEventListener("click", async () => {
-    const { value: nombre } = await Swal.fire({
-        title: '¡Gracias por confirmar!',
-        text: 'Por favor escribe tu nombre:',
-        input: 'text',
-        inputPlaceholder: 'Tu nombre',
-        confirmButtonText: 'Enviar',
-        showCancelButton: true
-    });
+        async function fetchLeaderboard() {
+            $('loader').style.display = 'block';
+            try {
+                const response = await fetch(SHEET_API_URL, { method: 'GET' });
+                const result = await response.json();
+                
+                leaderboardData = result.leaderboard || [];
+                
+                // Asegurar que Puntos sea numérico y ordenar
+                leaderboardData.forEach(p => p.Puntos = parseInt(p.Puntos) || 0);
+                leaderboardData.sort((a, b) => b.Puntos - a.Puntos);
+                
+                renderLeaderboard();
+                renderPlayerPool();
+            } catch (error) {
+                console.error("Error al cargar el Leaderboard:", error);
+                showCustomAlert("Error al cargar el Leaderboard. Revisa la URL de la API y el despliegue del script. (Puede ser error CORS si se prueba localmente)");
+            } finally {
+                $('loader').style.display = 'none';
+            }
+        }
 
-    if (nombre) {
-        await fetch("https://script.google.com/macros/s/AKfycbw4nh6CXZQJghW7T5rZpdcdPK8ZxE9TFa6pGJ1KZgtlen36J-VCJT4ZcYchCgykRjgbOA/exec", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: new URLSearchParams({
-                nombre: nombre,
-                acepta: "Sí"
-            })
-        });
+        async function saveLeaderboard() {
+            $('loader').style.display = 'block';
+            try {
+                const response = await fetch(SHEET_API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ leaderboard: leaderboardData }),
+                });
+                
+                const result = await response.json();
+                if (result.status === 'success') {
+                    showCustomAlert("¡Puntuación guardada con éxito!");
+                    fetchLeaderboard(); 
+                } else {
+                    showCustomAlert("Error al guardar la puntuación: " + result.message);
+                }
+            } catch (error) {
+                console.error("Error al guardar la puntuación:", error);
+                showCustomAlert("Error de conexión al guardar la puntuación. ¡Recuerda subirlo a GitHub Pages!");
+            } finally {
+                $('loader').style.display = 'none';
+            }
+        }
+        
+        // --- RENDERIZADO ---
 
-        Swal.fire({
-            icon: 'success',
-            title: '¡Registrado!',
-            text: `Gracias ${nombre}, tu respuesta ha sido guardada.`,
-        });
-    }
-});
-</script>
+        function renderLeaderboard() {
+            const tbody = $('leaderboard-body');
+            tbody.innerHTML = '';
+            
+            if (leaderboardData.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="2">No hay jugadores registrados.</td></tr>';
+                return;
+            }
+            
+            leaderboardData.forEach(player => {
+                const row = tbody.insertRow();
+                row.insertCell().textContent = player.Nick;
+                row.insertCell().textContent = player.Puntos;
+            });
+        }
+        
+        function renderPlayerPool() {
+            const pool = $('player-pool');
+            pool.innerHTML = '';
+
+            leaderboardData.forEach(player => {
+                const label = document.createElement('label');
+                label.innerHTML = `<input type="checkbox" data-nick="${player.Nick}" onchange="updateSelectedCount()"> ${player.Nick}`;
+                pool.appendChild(label);
+            });
+            updateSelectedCount();
+        }
+
+        function updateSelectedCount() {
+            const selected = Array.from(document.querySelectorAll('#player-pool input:checked')).length;
+            $('selected-count').textContent = selected;
+        }
+
+        // --- GESTIÓN DE JUGADORES Y MODO ---
+
+        async function addPlayerToSheet() {
+            const newNick = $('new-nick-input').value.trim();
+            if (newNick === "") {
+                showCustomAlert("Ingresa un Nick válido.");
+                return;
+            }
+
+            // Evitar duplicados
+            if (leaderboardData.some(p => p.Nick.toLowerCase() === newNick.toLowerCase())) {
+                showCustomAlert(`El Nick "${newNick}" ya existe en el Leaderboard.`);
+                return;
+            }
+
+            // Añadir el nuevo jugador a la data local con 0 puntos
+            leaderboardData.push({ 
+                Nick: newNick, 
+                Puntos: 0, 
+                Ultima_Partida: new Date().toLocaleString() 
+            });
+            
+            $('new-nick-input').value = '';
+            
+            // Guardar en la hoja de cálculo
+            await saveLeaderboard();
+        }
+        
+        function setMode(mode) {
+            currentMode = mode;
+            const size = mode * 2;
+            $('mode-3v3-btn').classList.remove('active');
+            $('mode-4v4-btn').classList.remove('active');
+            $(`mode-${mode}v${mode}-btn`).classList.add('active');
+            showCustomAlert(`Modo cambiado a ${mode} vs ${mode}. Requerirá ${size} jugadores seleccionados.`);
+        }
+
+        $('mode-3v3-btn').addEventListener('click', () => setMode(3));
+        $('mode-4v4-btn').addEventListener('click', () => setMode(4));
+
+        // --- LÓGICA DE JUEGO ---
+
+        function generateTeams() {
+            // 1. Obtener jugadores seleccionados
+            const selectedNicks = Array.from(document.querySelectorAll('#player-pool input:checked'))
+                                    .map(checkbox => checkbox.dataset.nick);
+
+            const requiredPlayers = currentMode * 2;
+            
+            if (selectedNicks.length !== requiredPlayers) {
+                showCustomAlert(`Debes seleccionar exactamente ${requiredPlayers} jugadores para el modo ${currentMode}v${currentMode}.`);
+                return;
+            }
+
+            // 2. Mezclar aleatoriamente (Shuffle)
+            const shuffledPlayers = [...selectedNicks].sort(() => 0.5 - Math.random());
+
+            // 3. Dividir en equipos
+            const teamSize = currentMode;
+            teamBlue = shuffledPlayers.slice(0, teamSize);
+            teamRed = shuffledPlayers.slice(teamSize, requiredPlayers);
+            
+            // 4. Renderizar equipos
+            renderTeams();
+            
+            // Mostrar paneles de equipos y resultados
+            $('teams-display').style.display = 'grid';
+            $('result-panel').style.display = 'flex';
+        }
+
+        function renderTeams() {
+            const ulBlue = $('team-blue').querySelector('ul');
+            const ulRed = $('team-red').querySelector('ul');
+            ulBlue.innerHTML = '';
+            ulRed.innerHTML = '';
+
+            teamBlue.forEach(nick => {
+                const li = document.createElement('li');
+                li.textContent = nick;
+                ulBlue.appendChild(li);
+            });
+
+            teamRed.forEach(nick => {
+                const li = document.createElement('li');
+                li.textContent = nick;
+                ulRed.appendChild(li);
+            });
+        }
+
+        async function recordWin(winningTeam) {
+            const winners = winningTeam === 'blue' ? teamBlue : teamRed;
+            
+            if (winners.length === 0) {
+                 showCustomAlert("Primero debes generar los equipos.");
+                 return;
+            }
+            
+            // Usamos el confirm estándar porque necesitamos una respuesta SÍ/NO
+            if (!confirm(`¿Confirmar que el Equipo ${winningTeam.toUpperCase()} ha ganado y sumar +1 punto a ${winners.length} jugadores?`)) {
+                return;
+            }
+
+            // 1. Actualizar puntuación en la data local
+            leaderboardData.forEach(player => {
+                if (winners.includes(player.Nick)) {
+                    player.Puntos += 1; 
+                    player.Ultima_Partida = new Date().toLocaleString();
+                }
+            });
+
+            // 2. Guardar la data completa en la hoja de cálculo
+            await saveLeaderboard();
+            
+            // 3. Limpiar y resetear para la siguiente partida
+            teamBlue = [];
+            teamRed = [];
+            $('teams-display').style.display = 'none';
+            $('result-panel').style.display = 'none';
+            $('team-blue').querySelector('ul').innerHTML = '';
+            $('team-red').querySelector('ul').innerHTML = '';
+            
+            // Deseleccionar los checkboxes
+            document.querySelectorAll('#player-pool input:checked').forEach(c => c.checked = false);
+            updateSelectedCount();
+        }
+
+
+        // --- INICIALIZACIÓN ---
+        document.addEventListener('DOMContentLoaded', fetchLeaderboard);
+
+    </script>
 </body>
 </html>
