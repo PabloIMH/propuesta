@@ -47,7 +47,6 @@
         header {
             text-align: center;
             margin-bottom: 40px;
-            animation: glitchTitle 5s infinite;
         }
         
         h1 {
@@ -105,6 +104,15 @@
             margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 2px;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: #ff00ff;
+            margin: 20px 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .input-group {
@@ -179,6 +187,11 @@
             background: linear-gradient(45deg, #00ff88, #00cc66);
         }
         
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+        
         .mode-selector {
             display: flex;
             gap: 15px;
@@ -205,11 +218,47 @@
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
         }
         
+        .all-players {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            padding: 15px;
+            background: rgba(10, 10, 30, 0.4);
+            border-radius: 8px;
+            border: 2px dashed rgba(255, 0, 255, 0.3);
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .player-card {
+            padding: 12px;
+            background: rgba(20, 20, 40, 0.6);
+            border: 2px solid rgba(100, 100, 150, 0.3);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1rem;
+            animation: playerAppear 0.4s ease;
+        }
+        
+        .player-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0, 255, 255, 0.5);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+        }
+        
+        .player-card.selected {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.3), rgba(255, 0, 255, 0.3));
+            border-color: #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+        }
+        
         .player-pool {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            min-height: 100px;
+            min-height: 80px;
             padding: 15px;
             background: rgba(10, 10, 30, 0.4);
             border-radius: 8px;
@@ -418,31 +467,48 @@
             h1 {
                 font-size: 2.5rem;
             }
+            
+            .all-players {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>⚔️ SCRIM MANAGER ⚔️</h1>
-            <div class="subtitle">CYBERPUNK EDITION</div>
+            <h1>⚔️ SCRIMS ANTIVENEKOS ⚔️</h1>
+            <div class="subtitle">VOTA 2</div>
         </header>
         
         <div class="main-grid">
             <div class="card">
                 <h2 class="card-title">🎮 LOBBY</h2>
+                
+                <!-- Agregar nuevo jugador -->
                 <div class="input-group">
-                    <input type="text" id="playerInput" placeholder="Ingresa el Nick del jugador...">
-                    <button class="btn" onclick="addPlayer()">AGREGAR</button>
+                    <input type="text" id="playerInput" placeholder="Agregar nuevo jugador...">
+                    <button class="btn btn-small" onclick="addNewPlayer()">+ GUARDAR</button>
                 </div>
                 
+                <!-- Selector de modo -->
                 <div class="mode-selector">
                     <button class="mode-btn active" onclick="setMode(3)">3v3</button>
                     <button class="mode-btn" onclick="setMode(4)">4v4</button>
                 </div>
                 
+                <!-- Todos los jugadores guardados -->
+                <h3 class="section-title">👥 JUGADORES GUARDADOS</h3>
+                <div class="all-players" id="allPlayers">
+                    <!-- Saved players will appear here -->
+                </div>
+                
+                <!-- Jugadores seleccionados para esta partida -->
+                <h3 class="section-title">⚔️ LOBBY ACTUAL</h3>
                 <div class="player-pool" id="playerPool">
-                    <!-- Players will appear here -->
+                    <div style="color: rgba(255,255,255,0.3); width: 100%; text-align: center;">
+                        Selecciona jugadores arriba...
+                    </div>
                 </div>
                 
                 <button class="btn" style="width: 100%; margin-top: 20px;" onclick="generateTeams()">
@@ -451,18 +517,17 @@
             </div>
             
             <div class="card">
-                <h2 class="card-title">🏆 LEADERBOARD</h2>
+                <h2 class="card-title">🏆 TABLA</h2>
                 <table class="leaderboard-table">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>JUGADOR</th>
                             <th>PUNTOS</th>
-                            <th>VICTORIAS</th>
                         </tr>
                     </thead>
                     <tbody id="leaderboardBody">
-                        <!-- Leaderboard will appear here -->
+                        <tr><td colspan="3" style="text-align: center; color: rgba(255,255,255,0.3);">Cargando...</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -495,32 +560,113 @@
     <script>
         const SHEET_URL = 'https://script.google.com/macros/s/AKfycbziFEdG8hiUEYDLQ1ylmM7v-Q3maF8VvcTfIO6X1Ky5ra-OJRFaaeVEc94aFeqkEBrQuQ/exec';
         
-        let players = [];
+        let allPlayers = {}; // Todos los jugadores guardados permanentemente
+        let selectedPlayers = []; // Jugadores seleccionados para esta partida
         let mode = 3;
         let blueTeam = [];
         let redTeam = [];
-        let leaderboard = {};
         
-        // Load initial data
+        // Cargar datos desde Google Sheets
         async function loadData() {
             try {
                 const response = await fetch(SHEET_URL);
                 const data = await response.json();
                 
-                if (data.data) {
-                    data.data.forEach(row => {
-                        if (row[0] && row[0] !== 'Columna A') {
-                            leaderboard[row[0]] = {
+                if (data.data && data.data.length > 2) {
+                    // Leer desde la fila 3 en adelante (índice 2)
+                    for (let i = 2; i < data.data.length; i++) {
+                        const row = data.data[i];
+                        if (row[0]) { // Si hay un nick
+                            allPlayers[row[0]] = {
                                 points: parseInt(row[1]) || 0,
-                                wins: parseInt(row[1]) || 0
+                                lastMatch: row[2] || ''
                             };
                         }
-                    });
-                    updateLeaderboard();
+                    }
                 }
+                
+                renderAllPlayers();
+                updateLeaderboard();
             } catch (error) {
-                console.log('Iniciando con leaderboard vacío');
+                console.log('Error cargando datos:', error);
             }
+        }
+        
+        // Renderizar todos los jugadores guardados
+        function renderAllPlayers() {
+            const container = document.getElementById('allPlayers');
+            const players = Object.keys(allPlayers).sort();
+            
+            if (players.length === 0) {
+                container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: rgba(255,255,255,0.3);">No hay jugadores guardados</div>';
+                return;
+            }
+            
+            container.innerHTML = players.map(nick => `
+                <div class="player-card ${selectedPlayers.includes(nick) ? 'selected' : ''}" 
+                     onclick="togglePlayer('${nick}')">
+                    ${nick}
+                </div>
+            `).join('');
+        }
+        
+        // Seleccionar/deseleccionar jugador
+        function togglePlayer(nick) {
+            if (selectedPlayers.includes(nick)) {
+                selectedPlayers = selectedPlayers.filter(p => p !== nick);
+            } else {
+                selectedPlayers.push(nick);
+            }
+            renderAllPlayers();
+            renderPlayerPool();
+        }
+        
+        // Renderizar lobby actual
+        function renderPlayerPool() {
+            const pool = document.getElementById('playerPool');
+            
+            if (selectedPlayers.length === 0) {
+                pool.innerHTML = '<div style="color: rgba(255,255,255,0.3); width: 100%; text-align: center;">Selecciona jugadores arriba...</div>';
+                return;
+            }
+            
+            pool.innerHTML = selectedPlayers.map(p => `
+                <div class="player-tag">
+                    <span>${p}</span>
+                    <span class="remove" onclick="togglePlayer('${p}')">✕</span>
+                </div>
+            `).join('');
+        }
+        
+        // Agregar nuevo jugador permanente
+        async function addNewPlayer() {
+            const input = document.getElementById('playerInput');
+            const nick = input.value.trim();
+            
+            if (!nick) {
+                alert('¡Escribe un nick!');
+                return;
+            }
+            
+            if (allPlayers[nick]) {
+                alert('¡Este jugador ya existe!');
+                return;
+            }
+            
+            // Agregar al objeto local
+            allPlayers[nick] = {
+                points: 0,
+                lastMatch: ''
+            };
+            
+            // Guardar inmediatamente en Sheets
+            await saveToSheet();
+            
+            renderAllPlayers();
+            updateLeaderboard();
+            input.value = '';
+            
+            alert(`✅ ${nick} guardado permanentemente!`);
         }
         
         function setMode(newMode) {
@@ -531,42 +677,10 @@
             event.target.classList.add('active');
         }
         
-        function addPlayer() {
-            const input = document.getElementById('playerInput');
-            const nick = input.value.trim();
-            
-            if (nick && !players.includes(nick)) {
-                players.push(nick);
-                
-                if (!leaderboard[nick]) {
-                    leaderboard[nick] = { points: 0, wins: 0 };
-                }
-                
-                renderPlayerPool();
-                updateLeaderboard();
-                input.value = '';
-            }
-        }
-        
-        function removePlayer(nick) {
-            players = players.filter(p => p !== nick);
-            renderPlayerPool();
-        }
-        
-        function renderPlayerPool() {
-            const pool = document.getElementById('playerPool');
-            pool.innerHTML = players.map(p => `
-                <div class="player-tag">
-                    <span>${p}</span>
-                    <span class="remove" onclick="removePlayer('${p}')">✕</span>
-                </div>
-            `).join('');
-        }
-        
         function generateTeams() {
             const required = mode * 2;
             
-            if (players.length < required) {
+            if (selectedPlayers.length < required) {
                 alert(`¡Necesitas ${required} jugadores para el modo ${mode}v${mode}!`);
                 return;
             }
@@ -575,7 +689,7 @@
             pool.classList.add('shuffle-animation');
             
             setTimeout(() => {
-                const shuffled = [...players].sort(() => Math.random() - 0.5);
+                const shuffled = [...selectedPlayers].sort(() => Math.random() - 0.5);
                 blueTeam = shuffled.slice(0, mode);
                 redTeam = shuffled.slice(mode, mode * 2);
                 
@@ -593,9 +707,20 @@
             
             teamElement.classList.add('victory-animation');
             
+            // Actualizar puntos de los ganadores
             winners.forEach(player => {
-                leaderboard[player].points += 1;
-                leaderboard[player].wins += 1;
+                if (allPlayers[player]) {
+                    allPlayers[player].points += 1;
+                    allPlayers[player].lastMatch = new Date().toLocaleString('es-CL');
+                }
+            });
+            
+            // Actualizar puntos de los perdedores (solo fecha)
+            const losers = team === 'blue' ? redTeam : blueTeam;
+            losers.forEach(player => {
+                if (allPlayers[player]) {
+                    allPlayers[player].lastMatch = new Date().toLocaleString('es-CL');
+                }
             });
             
             await saveToSheet();
@@ -609,10 +734,10 @@
         
         async function saveToSheet() {
             try {
-                const data = Object.keys(leaderboard).map(nick => ({
+                const data = Object.keys(allPlayers).map(nick => ({
                     nick: nick,
-                    points: leaderboard[nick].points,
-                    lastMatch: new Date().toLocaleString('es-CL')
+                    points: allPlayers[nick].points,
+                    lastMatch: allPlayers[nick].lastMatch || ''
                 }));
                 
                 await fetch(SHEET_URL, {
@@ -628,8 +753,13 @@
         
         function updateLeaderboard() {
             const tbody = document.getElementById('leaderboardBody');
-            const sorted = Object.entries(leaderboard)
+            const sorted = Object.entries(allPlayers)
                 .sort((a, b) => b[1].points - a[1].points);
+            
+            if (sorted.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="3" style="text-align: center; color: rgba(255,255,255,0.3);">No hay jugadores</td></tr>';
+                return;
+            }
             
             tbody.innerHTML = sorted.map(([nick, stats], index) => {
                 let rankClass = '';
@@ -642,7 +772,6 @@
                         <td class="rank ${rankClass}">${index + 1}</td>
                         <td>${nick}</td>
                         <td>${stats.points}</td>
-                        <td>${stats.wins}</td>
                     </tr>
                 `;
             }).join('');
@@ -651,16 +780,18 @@
         function resetMatch() {
             blueTeam = [];
             redTeam = [];
-            players = [];
+            selectedPlayers = [];
+            renderAllPlayers();
             renderPlayerPool();
             document.getElementById('teamsSection').classList.add('hidden');
         }
         
-        // Enter key to add player
+        // Enter key para agregar jugador
         document.getElementById('playerInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') addPlayer();
+            if (e.key === 'Enter') addNewPlayer();
         });
         
+        // Cargar datos al iniciar
         loadData();
     </script>
 </body>
