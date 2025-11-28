@@ -3,593 +3,665 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Score Generator | Ultra Dark</title>
+    <title>SCRIM MANAGER 2.0</title>
     <style>
-        /* CSS: Estilo Ultra Dark/Cyberpunk */
-        :root {
-            --dark: #121212;
-            --mid-dark: #1e1e1e;
-            --neon-blue: #00ffff;
-            --neon-pink: #ff007f;
-            --text-color: #f0f0f0;
-            --border-color: #333;
-        }
-
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap');
+        
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Consolas', 'Courier New', monospace;
-        }
-
-        body {
-            background-color: var(--dark);
-            color: var(--text-color);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        h1, h2 {
-            text-align: center;
-            text-shadow: 0 0 5px var(--neon-blue);
-            color: var(--neon-blue);
-        }
-
-        /* --- Estilo de Botones y Campos --- */
-        input[type="text"], button {
-            padding: 10px;
-            border: 1px solid var(--neon-blue);
-            background-color: var(--mid-dark);
-            color: var(--text-color);
-            font-size: 1em;
-            outline: none;
-            transition: all 0.2s;
-            border-radius: 4px;
-        }
-
-        button:hover {
-            cursor: pointer;
-            background-color: var(--neon-blue);
-            color: var(--dark);
-            box-shadow: 0 0 10px var(--neon-blue);
+            box-sizing: border-box;
         }
         
-        /* --- ESTILO DE ALERTA PERSONALIZADA --- */
-        #custom-alert {
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a0b2e 50%, #16003b 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro semitransparente */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        .custom-alert-hidden {
-            display: none !important;
-        }
-
-        .alert-content {
-            background-color: var(--mid-dark);
-            padding: 30px;
-            border-radius: 8px;
-            border: 2px solid var(--neon-pink);
-            box-shadow: 0 0 20px var(--neon-pink);
-            text-align: center;
-            max-width: 400px;
-            animation: fadeIn 0.3s;
-        }
-
-        .alert-content p {
-            margin-bottom: 20px;
-            font-size: 1.1em;
-            color: var(--text-color);
-        }
-
-        .alert-content button {
-            background-color: var(--neon-pink);
-            color: var(--dark);
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            transition: background-color 0.2s;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(120, 0, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        
-        /* --- Contenedores Generales --- */
         .container {
-            background-color: var(--mid-dark);
+            max-width: 1400px;
+            margin: 0 auto;
             padding: 20px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+            position: relative;
+            z-index: 1;
         }
-
-        /* --- Grid Principal --- */
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: glitchTitle 5s infinite;
+        }
+        
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #00ffff, #ff00ff, #00ffff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease infinite;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            letter-spacing: 5px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #00ffff;
+            margin-top: 10px;
+            letter-spacing: 3px;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
         .main-grid {
             display: grid;
-            grid-template-columns: 1fr 2fr; 
-            gap: 20px;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
         }
-
-        /* --- Leaderboard (Tabla de Posiciones) --- */
-        #leaderboard-container table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9em;
+        
+        .card {
+            background: rgba(20, 20, 40, 0.8);
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 255, 255, 0.1);
+            transition: all 0.3s ease;
         }
-
-        #leaderboard-container th, #leaderboard-container td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
+        
+        .card:hover {
+            border-color: rgba(0, 255, 255, 0.6);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 255, 255, 0.3);
+            transform: translateY(-5px);
         }
-
-        #leaderboard-container th {
-            color: var(--neon-pink);
-            background-color: #2a0016; 
+        
+        .card-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: #00ffff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
-
-        /* --- Panel de Control de Juego --- */
-        #game-controls {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        #player-management {
+        
+        .input-group {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
         }
         
-        /* --- Selector de Jugadores y Modo --- */
-        .selection-panel {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        #player-pool {
-            max-height: 250px;
-            overflow-y: auto;
-            border: 1px solid var(--border-color);
-            padding: 10px;
-            background-color: #0d0d0d;
-        }
-        
-        #player-pool label {
-            display: block;
-            padding: 5px 0;
-            cursor: pointer;
-            transition: background-color 0.1s;
-        }
-        
-        #player-pool label:hover {
-            background-color: #292929;
-        }
-        
-        #player-pool input[type="checkbox"] {
-            margin-right: 10px;
-            accent-color: var(--neon-pink); 
-        }
-
-        .mode-selector button {
-            width: 100%;
-            margin-bottom: 5px;
-        }
-        .mode-selector button.active {
-            background-color: var(--neon-pink);
-            color: var(--dark);
-            box-shadow: 0 0 10px var(--neon-pink);
-            border-color: var(--neon-pink);
-        }
-
-        /* --- Equipos Generados (Visualización Interactiva) --- */
-        #teams-display {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            min-height: 200px;
-        }
-
-        .team {
-            background-color: #0d0d0d;
+        input[type="text"] {
+            flex: 1;
             padding: 15px;
+            background: rgba(10, 10, 30, 0.6);
+            border: 2px solid rgba(0, 255, 255, 0.3);
             border-radius: 8px;
-            text-align: center;
-            border: 2px solid;
+            color: #fff;
+            font-size: 1.1rem;
+            font-family: 'Rajdhani', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #00ffff, #0099ff);
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             position: relative;
+            overflow: hidden;
         }
-
-        .team-blue { border-color: var(--neon-blue); }
-        .team-red { border-color: var(--neon-pink); }
-
-        .team h3 {
-            margin-bottom: 10px;
-            font-size: 1.5em;
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
         }
-
-        .team-blue h3 { color: var(--neon-blue); text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); }
-        .team-red h3 { color: var(--neon-pink); text-shadow: 0 0 5px rgba(255, 0, 127, 0.5); }
-
-        .team ul {
-            list-style: none;
-            padding: 0;
-            font-size: 1.1em;
+        
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
-
-        /* --- Panel de Resultados (Score) --- */
-        #result-panel {
+        
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(45deg, #ff0080, #ff0040);
+        }
+        
+        .btn-success {
+            background: linear-gradient(45deg, #00ff88, #00cc66);
+        }
+        
+        .mode-selector {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .mode-btn {
+            padding: 12px 30px;
+            background: rgba(20, 20, 40, 0.6);
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 8px;
+            color: #00ffff;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .mode-btn.active {
+            background: linear-gradient(45deg, #00ffff, #0099ff);
+            color: #000;
+            border-color: #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+        
+        .player-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            min-height: 100px;
+            padding: 15px;
+            background: rgba(10, 10, 30, 0.4);
+            border-radius: 8px;
+            border: 2px dashed rgba(0, 255, 255, 0.2);
+        }
+        
+        .player-tag {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 255, 0.2));
+            border: 1px solid rgba(0, 255, 255, 0.5);
+            border-radius: 20px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: playerAppear 0.4s ease;
+            transition: all 0.3s ease;
+        }
+        
+        .player-tag:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+        }
+        
+        .player-tag .remove {
+            cursor: pointer;
+            color: #ff0080;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        @keyframes playerAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.5) rotate(-10deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+        
+        .teams-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .team {
+            background: rgba(20, 20, 40, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .team.blue {
+            border: 3px solid rgba(0, 150, 255, 0.6);
+            box-shadow: 0 0 30px rgba(0, 150, 255, 0.3);
+        }
+        
+        .team.red {
+            border: 3px solid rgba(255, 0, 80, 0.6);
+            box-shadow: 0 0 30px rgba(255, 0, 80, 0.3);
+        }
+        
+        .team::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: teamGlow 4s ease-in-out infinite;
+        }
+        
+        @keyframes teamGlow {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(10%, 10%); }
+        }
+        
+        .team-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
             text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .team.blue .team-title {
+            color: #0096ff;
+            text-shadow: 0 0 20px rgba(0, 150, 255, 0.8);
+        }
+        
+        .team.red .team-title {
+            color: #ff0080;
+            text-shadow: 0 0 20px rgba(255, 0, 80, 0.8);
+        }
+        
+        .team-players {
+            list-style: none;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .team-players li {
+            padding: 12px;
+            margin: 8px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            font-size: 1.2rem;
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .winner-btns {
             display: flex;
             gap: 20px;
+            margin-top: 30px;
             justify-content: center;
         }
         
-        .win-button-blue {
-            background-color: #004444;
-            border-color: var(--neon-blue);
+        .leaderboard {
+            margin-top: 40px;
         }
         
-        .win-button-red {
-            background-color: #440022;
-            border-color: var(--neon-pink);
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(20, 20, 40, 0.6);
+            border-radius: 15px;
+            overflow: hidden;
         }
-
-        .win-button-blue:hover { background-color: var(--neon-blue); color: var(--dark); }
-        .win-button-red:hover { background-color: var(--neon-pink); color: var(--dark); }
         
-        /* Ocultar elementos por defecto */
-        #teams-display, #result-panel {
+        .leaderboard-table th {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 255, 0.2));
+            padding: 15px;
+            text-align: left;
+            font-size: 1.2rem;
+            font-family: 'Orbitron', sans-serif;
+            color: #00ffff;
+            text-transform: uppercase;
+        }
+        
+        .leaderboard-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+            font-size: 1.1rem;
+        }
+        
+        .leaderboard-table tr:hover {
+            background: rgba(0, 255, 255, 0.1);
+        }
+        
+        .rank {
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+        
+        .rank.gold { color: #ffd700; text-shadow: 0 0 10px #ffd700; }
+        .rank.silver { color: #c0c0c0; text-shadow: 0 0 10px #c0c0c0; }
+        .rank.bronze { color: #cd7f32; text-shadow: 0 0 10px #cd7f32; }
+        
+        .shuffle-animation {
+            animation: shuffle 0.5s ease;
+        }
+        
+        @keyframes shuffle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+        
+        .victory-animation {
+            animation: victory 1s ease;
+        }
+        
+        @keyframes victory {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); box-shadow: 0 0 50px currentColor; }
+            100% { transform: scale(1); }
+        }
+        
+        .hidden {
             display: none;
         }
         
-        /* Loader */
-        .loader {
-            border: 5px solid #222;
-            border-top: 5px solid var(--neon-blue);
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            display: none;
-            margin: 10px auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Responsividad */
-        @media (max-width: 900px) {
-            .main-grid {
+        @media (max-width: 968px) {
+            .main-grid, .teams-container {
                 grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
             }
         }
     </style>
 </head>
 <body>
-
-    <div id="custom-alert" class="custom-alert-hidden">
-        <div class="alert-content">
-            <p id="alert-message"></p>
-            <button onclick="hideCustomAlert()">Aceptar</button>
-        </div>
-    </div>
-
-    <h1>🎮 LoL Team & Score Manager (DARK)</h1>
-    
-    <div class="loader" id="loader"></div>
-    
-    <div class="main-grid">
+    <div class="container">
+        <header>
+            <h1>⚔️ SCRIM MANAGER ⚔️</h1>
+            <div class="subtitle">CYBERPUNK EDITION</div>
+        </header>
         
-        <div id="leaderboard-container" class="container">
-            <h2>🏆 Leaderboard</h2>
-            <table>
-                <thead>
-                    <tr><th>Nick</th><th>Puntos</th></tr>
-                </thead>
-                <tbody id="leaderboard-body">
-                    </tbody>
-            </table>
-        </div>
-
-        <div id="game-controls" class="container">
-            <h2>🛠️ Control de Partidas</h2>
-
-            <div id="player-management">
-                <input type="text" id="new-nick-input" placeholder="Añadir nuevo Nick (ej: MiNombre)">
-                <button onclick="addPlayerToSheet()">Añadir Nick Permanente</button>
-            </div>
-            
-            <div class="selection-panel">
-                <div>
-                    <h3>Seleccionar Participantes</h3>
-                    <div id="player-pool">
-                        </div>
+        <div class="main-grid">
+            <div class="card">
+                <h2 class="card-title">🎮 LOBBY</h2>
+                <div class="input-group">
+                    <input type="text" id="playerInput" placeholder="Ingresa el Nick del jugador...">
+                    <button class="btn" onclick="addPlayer()">AGREGAR</button>
                 </div>
                 
                 <div class="mode-selector">
-                    <h3>Modo de Juego</h3>
-                    <button id="mode-3v3-btn" data-mode="3" class="active">3 vs 3 (Requiere 6)</button>
-                    <button id="mode-4v4-btn" data-mode="4">4 vs 4 (Requiere 8)</button>
-                    
-                    <p style="margin-top: 10px; font-size: 0.9em;">Jugadores Seleccionados: <strong id="selected-count">0</strong></p>
-                    
-                    <button onclick="generateTeams()" style="margin-top: 15px; background-color: var(--neon-pink);">
-                        ⚔️ Generar Equipos Aleatorios
-                    </button>
+                    <button class="mode-btn active" onclick="setMode(3)">3v3</button>
+                    <button class="mode-btn" onclick="setMode(4)">4v4</button>
                 </div>
+                
+                <div class="player-pool" id="playerPool">
+                    <!-- Players will appear here -->
+                </div>
+                
+                <button class="btn" style="width: 100%; margin-top: 20px;" onclick="generateTeams()">
+                    🎲 GENERAR EQUIPOS
+                </button>
             </div>
-
-            <div id="teams-display">
-                <div id="team-blue" class="team team-blue">
-                    <h3>Equipo Azul</h3>
-                    <ul></ul>
+            
+            <div class="card">
+                <h2 class="card-title">🏆 LEADERBOARD</h2>
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>JUGADOR</th>
+                            <th>PUNTOS</th>
+                            <th>VICTORIAS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboardBody">
+                        <!-- Leaderboard will appear here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div id="teamsSection" class="hidden">
+            <div class="teams-container">
+                <div class="team blue">
+                    <h3 class="team-title">💙 EQUIPO AZUL</h3>
+                    <ul class="team-players" id="blueTeam"></ul>
                 </div>
-                <div id="team-red" class="team team-red">
-                    <h3>Equipo Rojo</h3>
-                    <ul></ul>
+                
+                <div class="team red">
+                    <h3 class="team-title">❤️ EQUIPO ROJO</h3>
+                    <ul class="team-players" id="redTeam"></ul>
                 </div>
             </div>
             
-            <div id="result-panel">
-                <button class="win-button-blue" onclick="recordWin('blue')">Ganó Equipo AZUL (+1 Punto)</button>
-                <button class="win-button-red" onclick="recordWin('red')">Ganó Equipo ROJO (+1 Punto)</button>
+            <div class="winner-btns">
+                <button class="btn btn-success" onclick="declareWinner('blue')">
+                    GANÓ AZUL 💙
+                </button>
+                <button class="btn btn-danger" onclick="declareWinner('red')">
+                    GANÓ ROJO ❤️
+                </button>
             </div>
         </div>
     </div>
-
+    
     <script>
-        // JS: Lógica del Cliente
+        const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxaOOI5BXmcqpgfP4kQr-rKsv2o83disn7LMXOHx3KTqeoPZ7I-1ait2WsOokS4-JUYSQ/exec';
         
-        // 🚨 REEMPLAZA ESTA URL con la que copiaste al DEPLEGAR tu Apps Script
-        const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxaOOI5BXmcqpgfP4kQr-rKsv2o83disn7LMXOHx3KTqeoPZ7I-1ait2WsOokS4-JUYSQ/exec';
-
-        let leaderboardData = [];
-        let currentMode = 3; 
-        let teamBlue = [];
-        let teamRed = [];
+        let players = [];
+        let mode = 3;
+        let blueTeam = [];
+        let redTeam = [];
+        let leaderboard = {};
         
-        const $ = (id) => document.getElementById(id);
-
-        // --- FUNCIONES DE ALERTA PERSONALIZADA ---
-        function showCustomAlert(message) {
-            $('alert-message').textContent = message;
-            $('custom-alert').classList.remove('custom-alert-hidden');
-        }
-
-        function hideCustomAlert() {
-            $('custom-alert').classList.add('custom-alert-hidden');
-        }
-
-        // --- MANEJO DE LA DATA (API) ---
-
-        async function fetchLeaderboard() {
-            $('loader').style.display = 'block';
+        // Load initial data
+        async function loadData() {
             try {
-                const response = await fetch(SHEET_API_URL, { method: 'GET' });
-                const result = await response.json();
+                const response = await fetch(SHEET_URL);
+                const data = await response.json();
                 
-                leaderboardData = result.leaderboard || [];
-                
-                // Asegurar que Puntos sea numérico y ordenar
-                leaderboardData.forEach(p => p.Puntos = parseInt(p.Puntos) || 0);
-                leaderboardData.sort((a, b) => b.Puntos - a.Puntos);
-                
-                renderLeaderboard();
-                renderPlayerPool();
-            } catch (error) {
-                console.error("Error al cargar el Leaderboard:", error);
-                showCustomAlert("Error al cargar el Leaderboard. Revisa la URL de la API y el despliegue del script. (Puede ser error CORS si se prueba localmente)");
-            } finally {
-                $('loader').style.display = 'none';
-            }
-        }
-
-        async function saveLeaderboard() {
-            $('loader').style.display = 'block';
-            try {
-                const response = await fetch(SHEET_API_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ leaderboard: leaderboardData }),
-                });
-                
-                const result = await response.json();
-                if (result.status === 'success') {
-                    showCustomAlert("¡Puntuación guardada con éxito!");
-                    fetchLeaderboard(); 
-                } else {
-                    showCustomAlert("Error al guardar la puntuación: " + result.message);
+                if (data.data) {
+                    data.data.forEach(row => {
+                        if (row[0] && row[0] !== 'Columna A') {
+                            leaderboard[row[0]] = {
+                                points: parseInt(row[1]) || 0,
+                                wins: parseInt(row[1]) || 0
+                            };
+                        }
+                    });
+                    updateLeaderboard();
                 }
             } catch (error) {
-                console.error("Error al guardar la puntuación:", error);
-                showCustomAlert("Error de conexión al guardar la puntuación. ¡Recuerda subirlo a GitHub Pages!");
-            } finally {
-                $('loader').style.display = 'none';
+                console.log('Iniciando con leaderboard vacío');
             }
         }
         
-        // --- RENDERIZADO ---
-
-        function renderLeaderboard() {
-            const tbody = $('leaderboard-body');
-            tbody.innerHTML = '';
-            
-            if (leaderboardData.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="2">No hay jugadores registrados.</td></tr>';
-                return;
-            }
-            
-            leaderboardData.forEach(player => {
-                const row = tbody.insertRow();
-                row.insertCell().textContent = player.Nick;
-                row.insertCell().textContent = player.Puntos;
+        function setMode(newMode) {
+            mode = newMode;
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.classList.remove('active');
             });
+            event.target.classList.add('active');
+        }
+        
+        function addPlayer() {
+            const input = document.getElementById('playerInput');
+            const nick = input.value.trim();
+            
+            if (nick && !players.includes(nick)) {
+                players.push(nick);
+                
+                if (!leaderboard[nick]) {
+                    leaderboard[nick] = { points: 0, wins: 0 };
+                }
+                
+                renderPlayerPool();
+                updateLeaderboard();
+                input.value = '';
+            }
+        }
+        
+        function removePlayer(nick) {
+            players = players.filter(p => p !== nick);
+            renderPlayerPool();
         }
         
         function renderPlayerPool() {
-            const pool = $('player-pool');
-            pool.innerHTML = '';
-
-            leaderboardData.forEach(player => {
-                const label = document.createElement('label');
-                label.innerHTML = `<input type="checkbox" data-nick="${player.Nick}" onchange="updateSelectedCount()"> ${player.Nick}`;
-                pool.appendChild(label);
-            });
-            updateSelectedCount();
-        }
-
-        function updateSelectedCount() {
-            const selected = Array.from(document.querySelectorAll('#player-pool input:checked')).length;
-            $('selected-count').textContent = selected;
-        }
-
-        // --- GESTIÓN DE JUGADORES Y MODO ---
-
-        async function addPlayerToSheet() {
-            const newNick = $('new-nick-input').value.trim();
-            if (newNick === "") {
-                showCustomAlert("Ingresa un Nick válido.");
-                return;
-            }
-
-            // Evitar duplicados
-            if (leaderboardData.some(p => p.Nick.toLowerCase() === newNick.toLowerCase())) {
-                showCustomAlert(`El Nick "${newNick}" ya existe en el Leaderboard.`);
-                return;
-            }
-
-            // Añadir el nuevo jugador a la data local con 0 puntos
-            leaderboardData.push({ 
-                Nick: newNick, 
-                Puntos: 0, 
-                Ultima_Partida: new Date().toLocaleString() 
-            });
-            
-            $('new-nick-input').value = '';
-            
-            // Guardar en la hoja de cálculo
-            await saveLeaderboard();
+            const pool = document.getElementById('playerPool');
+            pool.innerHTML = players.map(p => `
+                <div class="player-tag">
+                    <span>${p}</span>
+                    <span class="remove" onclick="removePlayer('${p}')">✕</span>
+                </div>
+            `).join('');
         }
         
-        function setMode(mode) {
-            currentMode = mode;
-            const size = mode * 2;
-            $('mode-3v3-btn').classList.remove('active');
-            $('mode-4v4-btn').classList.remove('active');
-            $(`mode-${mode}v${mode}-btn`).classList.add('active');
-            showCustomAlert(`Modo cambiado a ${mode} vs ${mode}. Requerirá ${size} jugadores seleccionados.`);
-        }
-
-        $('mode-3v3-btn').addEventListener('click', () => setMode(3));
-        $('mode-4v4-btn').addEventListener('click', () => setMode(4));
-
-        // --- LÓGICA DE JUEGO ---
-
         function generateTeams() {
-            // 1. Obtener jugadores seleccionados
-            const selectedNicks = Array.from(document.querySelectorAll('#player-pool input:checked'))
-                                    .map(checkbox => checkbox.dataset.nick);
-
-            const requiredPlayers = currentMode * 2;
+            const required = mode * 2;
             
-            if (selectedNicks.length !== requiredPlayers) {
-                showCustomAlert(`Debes seleccionar exactamente ${requiredPlayers} jugadores para el modo ${currentMode}v${currentMode}.`);
+            if (players.length < required) {
+                alert(`¡Necesitas ${required} jugadores para el modo ${mode}v${mode}!`);
                 return;
             }
-
-            // 2. Mezclar aleatoriamente (Shuffle)
-            const shuffledPlayers = [...selectedNicks].sort(() => 0.5 - Math.random());
-
-            // 3. Dividir en equipos
-            const teamSize = currentMode;
-            teamBlue = shuffledPlayers.slice(0, teamSize);
-            teamRed = shuffledPlayers.slice(teamSize, requiredPlayers);
             
-            // 4. Renderizar equipos
-            renderTeams();
+            const pool = document.getElementById('playerPool');
+            pool.classList.add('shuffle-animation');
             
-            // Mostrar paneles de equipos y resultados
-            $('teams-display').style.display = 'grid';
-            $('result-panel').style.display = 'flex';
+            setTimeout(() => {
+                const shuffled = [...players].sort(() => Math.random() - 0.5);
+                blueTeam = shuffled.slice(0, mode);
+                redTeam = shuffled.slice(mode, mode * 2);
+                
+                document.getElementById('blueTeam').innerHTML = blueTeam.map(p => `<li>⚔️ ${p}</li>`).join('');
+                document.getElementById('redTeam').innerHTML = redTeam.map(p => `<li>⚔️ ${p}</li>`).join('');
+                
+                document.getElementById('teamsSection').classList.remove('hidden');
+                pool.classList.remove('shuffle-animation');
+            }, 500);
         }
-
-        function renderTeams() {
-            const ulBlue = $('team-blue').querySelector('ul');
-            const ulRed = $('team-red').querySelector('ul');
-            ulBlue.innerHTML = '';
-            ulRed.innerHTML = '';
-
-            teamBlue.forEach(nick => {
-                const li = document.createElement('li');
-                li.textContent = nick;
-                ulBlue.appendChild(li);
-            });
-
-            teamRed.forEach(nick => {
-                const li = document.createElement('li');
-                li.textContent = nick;
-                ulRed.appendChild(li);
-            });
-        }
-
-        async function recordWin(winningTeam) {
-            const winners = winningTeam === 'blue' ? teamBlue : teamRed;
+        
+        async function declareWinner(team) {
+            const winners = team === 'blue' ? blueTeam : redTeam;
+            const teamElement = document.querySelector(`.team.${team}`);
             
-            if (winners.length === 0) {
-                 showCustomAlert("Primero debes generar los equipos.");
-                 return;
+            teamElement.classList.add('victory-animation');
+            
+            winners.forEach(player => {
+                leaderboard[player].points += 1;
+                leaderboard[player].wins += 1;
+            });
+            
+            await saveToSheet();
+            updateLeaderboard();
+            
+            setTimeout(() => {
+                resetMatch();
+                teamElement.classList.remove('victory-animation');
+            }, 1000);
+        }
+        
+        async function saveToSheet() {
+            try {
+                const data = Object.keys(leaderboard).map(nick => ({
+                    nick: nick,
+                    points: leaderboard[nick].points,
+                    lastMatch: new Date().toLocaleString('es-CL')
+                }));
+                
+                await fetch(SHEET_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ data: data })
+                });
+            } catch (error) {
+                console.error('Error guardando:', error);
             }
-            
-            // Usamos el confirm estándar porque necesitamos una respuesta SÍ/NO
-            if (!confirm(`¿Confirmar que el Equipo ${winningTeam.toUpperCase()} ha ganado y sumar +1 punto a ${winners.length} jugadores?`)) {
-                return;
-            }
-
-            // 1. Actualizar puntuación en la data local
-            leaderboardData.forEach(player => {
-                if (winners.includes(player.Nick)) {
-                    player.Puntos += 1; 
-                    player.Ultima_Partida = new Date().toLocaleString();
-                }
-            });
-
-            // 2. Guardar la data completa en la hoja de cálculo
-            await saveLeaderboard();
-            
-            // 3. Limpiar y resetear para la siguiente partida
-            teamBlue = [];
-            teamRed = [];
-            $('teams-display').style.display = 'none';
-            $('result-panel').style.display = 'none';
-            $('team-blue').querySelector('ul').innerHTML = '';
-            $('team-red').querySelector('ul').innerHTML = '';
-            
-            // Deseleccionar los checkboxes
-            document.querySelectorAll('#player-pool input:checked').forEach(c => c.checked = false);
-            updateSelectedCount();
         }
-
-
-        // --- INICIALIZACIÓN ---
-        document.addEventListener('DOMContentLoaded', fetchLeaderboard);
-
+        
+        function updateLeaderboard() {
+            const tbody = document.getElementById('leaderboardBody');
+            const sorted = Object.entries(leaderboard)
+                .sort((a, b) => b[1].points - a[1].points);
+            
+            tbody.innerHTML = sorted.map(([nick, stats], index) => {
+                let rankClass = '';
+                if (index === 0) rankClass = 'gold';
+                else if (index === 1) rankClass = 'silver';
+                else if (index === 2) rankClass = 'bronze';
+                
+                return `
+                    <tr>
+                        <td class="rank ${rankClass}">${index + 1}</td>
+                        <td>${nick}</td>
+                        <td>${stats.points}</td>
+                        <td>${stats.wins}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+        
+        function resetMatch() {
+            blueTeam = [];
+            redTeam = [];
+            players = [];
+            renderPlayerPool();
+            document.getElementById('teamsSection').classList.add('hidden');
+        }
+        
+        // Enter key to add player
+        document.getElementById('playerInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addPlayer();
+        });
+        
+        loadData();
     </script>
 </body>
 </html>
