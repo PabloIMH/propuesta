@@ -105,6 +105,46 @@
             }
         }
 
+        /* SELECTOR DE MODO DE JUEGO */
+        .game-mode-selector {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(20, 20, 40, 0.9);
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .game-mode-btn {
+            padding: 15px 40px;
+            background: rgba(20, 20, 40, 0.8);
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
+            color: #00ffff;
+            font-size: 1.4rem;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .game-mode-btn.active {
+            background: linear-gradient(45deg, #00ffff, #0099ff);
+            color: #000;
+            border-color: #00ffff;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+            transform: scale(1.05);
+        }
+
+        .game-mode-btn:hover:not(.active) {
+            border-color: rgba(0, 255, 255, 0.6);
+            transform: translateY(-3px);
+        }
+
         .main-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -253,6 +293,353 @@
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
         }
 
+        /* SWITCH TOGGLE */
+        .switch-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(10, 10, 30, 0.6);
+            border-radius: 10px;
+            border: 2px dashed rgba(255, 0, 255, 0.3);
+            position: relative;
+            z-index: 20;
+        }
+
+        .switch-label {
+            font-size: 1.1rem;
+            color: #ff00ff;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(100, 100, 150, 0.3);
+            transition: .4s;
+            border-radius: 34px;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 2px;
+            background-color: #00ffff;
+            transition: .4s;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        input:checked+.slider {
+            background: linear-gradient(45deg, rgba(0, 255, 255, 0.3), rgba(255, 0, 255, 0.3));
+            border-color: #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(26px);
+            background-color: #ff00ff;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+        }
+
+        /* MODO CAPITANES */
+        .captains-mode {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(10, 10, 30, 0.6);
+            border-radius: 10px;
+            border: 2px solid rgba(255, 0, 255, 0.3);
+        }
+
+        .captains-selection {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .captain-card {
+            padding: 20px;
+            background: rgba(20, 20, 40, 0.9);
+            border: 3px solid rgba(0, 255, 255, 0.3);
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .captain-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .captain-card.blue {
+            border-color: rgba(0, 150, 255, 0.6);
+            box-shadow: 0 5px 20px rgba(0, 150, 255, 0.3);
+        }
+
+        .captain-card.red {
+            border-color: rgba(255, 0, 80, 0.6);
+            box-shadow: 0 5px 20px rgba(255, 0, 80, 0.3);
+        }
+
+        .captain-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #00ffff;
+            margin-bottom: 15px;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .captain-card.blue .captain-name {
+            color: #0096ff;
+            text-shadow: 0 0 15px rgba(0, 150, 255, 0.6);
+        }
+
+        .captain-card.red .captain-name {
+            color: #ff0080;
+            text-shadow: 0 0 15px rgba(255, 0, 80, 0.6);
+        }
+
+        .captain-select-wrapper {
+            position: relative;
+        }
+
+        .captain-select-wrapper select {
+            width: 100%;
+            padding: 15px;
+            padding-right: 40px;
+            background: rgba(10, 10, 30, 0.9);
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1.1rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            appearance: none;
+        }
+
+        .captain-select-wrapper select:hover {
+            border-color: rgba(0, 255, 255, 0.6);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .captain-select-wrapper select:focus {
+            outline: none;
+            border-color: #00ffff;
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
+        }
+
+        .captain-select-wrapper::after {
+            content: '▼';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #00ffff;
+            pointer-events: none;
+            font-size: 1.2rem;
+        }
+
+        .captain-select-wrapper.blue select {
+            border-color: rgba(0, 150, 255, 0.5);
+        }
+
+        .captain-select-wrapper.blue select:hover,
+        .captain-select-wrapper.blue select:focus {
+            border-color: #0096ff;
+            box-shadow: 0 0 25px rgba(0, 150, 255, 0.5);
+        }
+
+        .captain-select-wrapper.red select {
+            border-color: rgba(255, 0, 80, 0.5);
+        }
+
+        .captain-select-wrapper.red select:hover,
+        .captain-select-wrapper.red select:focus {
+            border-color: #ff0080;
+            box-shadow: 0 0 25px rgba(255, 0, 80, 0.5);
+        }
+
+        /* INTERFAZ DE SELECCIÓN DE CAPITANES */
+        .captain-selection-interface {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 1200px;
+            background: rgba(20, 20, 40, 0.98);
+            border: 3px solid rgba(0, 255, 255, 0.6);
+            border-radius: 20px;
+            padding: 40px;
+            z-index: 10000;
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .captain-interface-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #00ffff;
+            text-transform: uppercase;
+        }
+
+        .turn-indicator {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 255, 0.2));
+            border: 2px solid rgba(255, 0, 255, 0.6);
+            border-radius: 15px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .turn-indicator.blue {
+            border-color: rgba(0, 150, 255, 0.6);
+            background: linear-gradient(135deg, rgba(0, 150, 255, 0.2), rgba(0, 255, 255, 0.2));
+            color: #0096ff;
+        }
+
+        .turn-indicator.red {
+            border-color: rgba(255, 0, 80, 0.6);
+            background: linear-gradient(135deg, rgba(255, 0, 80, 0.2), rgba(255, 0, 255, 0.2));
+            color: #ff0080;
+        }
+
+        .available-players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(10, 10, 30, 0.6);
+            border-radius: 15px;
+            border: 2px dashed rgba(255, 0, 255, 0.3);
+        }
+
+        .selectable-player {
+            padding: 15px;
+            background: rgba(20, 20, 40, 0.8);
+            border: 2px solid rgba(100, 100, 150, 0.3);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .selectable-player:hover {
+            transform: translateY(-5px) scale(1.05);
+            border-color: rgba(0, 255, 255, 0.8);
+            box-shadow: 0 8px 25px rgba(0, 255, 255, 0.4);
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.3), rgba(255, 0, 255, 0.3));
+        }
+
+        .captain-teams-display {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .captain-team-preview {
+            background: rgba(20, 20, 40, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            min-height: 300px;
+        }
+
+        .captain-team-preview.blue {
+            border: 3px solid rgba(0, 150, 255, 0.6);
+            box-shadow: 0 0 30px rgba(0, 150, 255, 0.3);
+        }
+
+        .captain-team-preview.red {
+            border: 3px solid rgba(255, 0, 80, 0.6);
+            box-shadow: 0 0 30px rgba(255, 0, 80, 0.3);
+        }
+
+        .captain-team-preview h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .captain-team-preview.blue h3 {
+            color: #0096ff;
+            text-shadow: 0 0 20px rgba(0, 150, 255, 0.8);
+        }
+
+        .captain-team-preview.red h3 {
+            color: #ff0080;
+            text-shadow: 0 0 20px rgba(255, 0, 80, 0.8);
+        }
+
+        .captain-team-list {
+            list-style: none;
+        }
+
+        .captain-team-list li {
+            padding: 12px;
+            margin: 8px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            font-size: 1.2rem;
+            animation: slideIn 0.5s ease;
+        }
+
+        .captain-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-left: 10px;
+        }
+
+        .finish-selection-btn {
+            width: 100%;
+            margin-top: 30px;
+        }
+
         .all-players {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -288,6 +675,11 @@
             background: linear-gradient(135deg, rgba(0, 255, 255, 0.3), rgba(255, 0, 255, 0.3));
             border-color: #00ffff;
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+        }
+
+        .player-card.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
         }
 
         .player-card .delete-btn {
@@ -440,6 +832,19 @@
             border-radius: 8px;
             font-size: 1.2rem;
             animation: slideIn 0.5s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .player-role {
+            font-size: 1rem;
+            color: #ff00ff;
+            font-weight: 700;
+            padding: 4px 12px;
+            background: rgba(255, 0, 255, 0.2);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 0, 255, 0.4);
         }
 
         @keyframes slideIn {
@@ -459,6 +864,44 @@
             gap: 20px;
             margin-top: 30px;
             justify-content: center;
+        }
+
+        .role-announcement {
+            text-align: center;
+            padding: 20px;
+            margin: 20px 0;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 255, 0.2));
+            border: 3px solid rgba(255, 0, 255, 0.6);
+            border-radius: 15px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .role-announcement-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: #ff00ff;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .role-announcement-role {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: #00ffff;
+            font-weight: 900;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(255, 0, 255, 0.8);
+            }
         }
 
         .leaderboard {
@@ -647,6 +1090,122 @@
             font-size: 1rem;
         }
 
+        /* Iconos de ayuda (tooltips) */
+        .help-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            margin-left: 8px;
+            border-radius: 50%;
+            background: rgba(0, 255, 255, 0.15);
+            border: 1px solid rgba(0, 255, 255, 0.5);
+            font-size: 0.8rem;
+            cursor: help;
+            position: relative;
+            color: #00ffff;
+            z-index: 50;
+        }
+
+        .help-tooltip {
+            position: fixed;
+            background: rgba(10, 10, 30, 0.98);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 255, 255, 0.6);
+            font-size: 0.85rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.15s ease;
+            z-index: 99999;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            max-width: 300px;
+            white-space: normal;
+            word-wrap: break-word;
+        }
+
+        .help-tooltip.show {
+            opacity: 1;
+        }
+
+        .help-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px;
+            border-style: solid;
+            border-color: rgba(0, 255, 255, 0.6) transparent transparent transparent;
+        }
+
+        /* LOADER GLOBAL */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 20000;
+            backdrop-filter: blur(4px);
+        }
+
+        .loading-overlay.hidden {
+            display: none;
+        }
+
+        .loading-spinner {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 6px solid rgba(0, 255, 255, 0.1);
+            border-top-color: #00ffff;
+            border-right-color: #ff00ff;
+            animation: spin 1s linear infinite;
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
+            margin-bottom: 25px;
+        }
+
+        .loading-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .loading-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            color: #00ffff;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .loading-message {
+            font-size: 1.1rem;
+            color: #ffffff;
+            opacity: 0.9;
+            text-align: center;
+            max-width: 420px;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
         .history-table tr:hover {
             background: rgba(255, 0, 255, 0.1);
         }
@@ -669,11 +1228,31 @@
             .custom-alert {
                 min-width: 90%;
             }
+
+            .game-mode-selector {
+                flex-direction: column;
+            }
+
+            .captain-teams-display {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
-</head>
 
 <body>
+    <!-- TOOLTIP GLOBAL -->
+    <div id="helpTooltip" class="help-tooltip"></div>
+
+    <!-- LOADER GLOBAL PARA OPERACIONES LENTAS -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-icon">🪰</div>
+        <div class="loading-spinner"></div>
+        <div class="loading-title">Guardando datos</div>
+        <div class="loading-message" id="loadingMessage">
+            Esto puede tomar un momento...
+        </div>
+    </div>
+
     <div class="alert-overlay" id="alertOverlay"></div>
     <div class="custom-alert" id="customAlert">
         <div class="alert-title" id="alertTitle">Título</div>
@@ -681,126 +1260,252 @@
         <div class="alert-buttons" id="alertButtons"></div>
     </div>
 
+    <!-- INTERFAZ DE SELECCIÓN DE CAPITANES -->
+    <div class="alert-overlay" id="captainOverlay"></div>
+    <div class="captain-selection-interface hidden" id="captainInterface">
+        <h2 class="captain-interface-title">👑 SELECCIÓN POR CAPITANES</h2>
+
+        <div class="turn-indicator" id="turnIndicator">
+            Turno de: <strong id="currentCaptainName">Capitán Azul</strong>
+        </div>
+
+        <h3 class="section-title" style="text-align: center;">JUGADORES DISPONIBLES</h3>
+        <div class="available-players-grid" id="availablePlayers">
+            <!-- Se llenarán dinámicamente -->
+        </div>
+
+        <div class="captain-teams-display">
+            <div class="captain-team-preview blue">
+                <h3>💙 EQUIPO AZUL</h3>
+                <ul class="captain-team-list" id="blueCaptainTeam">
+                    <!-- Se llenará dinámicamente -->
+                </ul>
+            </div>
+
+            <div class="captain-team-preview red">
+                <h3>❤️ EQUIPO ROJO</h3>
+                <ul class="captain-team-list" id="redCaptainTeam">
+                    <!-- Se llenará dinámicamente -->
+                </ul>
+            </div>
+        </div>
+
+        <button class="btn btn-success finish-selection-btn hidden" id="finishSelectionBtn"
+            onclick="finishCaptainSelection()">
+            ✅ FINALIZAR SELECCIÓN
+        </button>
+    </div>
+
     <div class="container">
         <header>
             <h1>⚔️ SCRIMS ANTIVENEKOS ⚔️</h1>
-            <div class="subtitle">SISTEMA DE TORNEOS V3.0</div>
+            <div class="subtitle">SISTEMA PARA TROLLS</div>
             <div class="tournament-progress" id="tournamentProgress">Sin torneo activo</div>
         </header>
 
-        <div class="main-grid">
-            <div class="card">
-                <h2 class="card-title">🎮 LOBBY</h2>
+        <!-- SELECTOR DE MODO DE JUEGO -->
+        <div class="game-mode-selector">
+            <button class="game-mode-btn" onclick="setGameMode(event, 'aram')">
+                🎯 ARAM
+            </button>
+            <button class="game-mode-btn" onclick="setGameMode(event, 'grieta')">
+                🗺️ GRIETA DEL INVOCADOR
+            </button>
+        </div>
 
-                <!-- Agregar nuevo jugador -->
-                <div class="input-group">
-                    <input type="text" id="playerInput" placeholder="Agregar nuevo jugador...">
-                    <button class="btn btn-small" onclick="addNewPlayer()">+ GUARDAR</button>
+        <div id="mainContent" class="hidden">
+            <div class="main-grid">
+                <div class="card">
+                    <h2 class="card-title">🎮 LOBBY</h2>
+
+                    <!-- Agregar nuevo jugador -->
+                    <div class="input-group">
+                        <input type="text" id="playerInput" placeholder="Agregar nuevo jugador...">
+                        <button class="btn btn-small" onclick="addNewPlayer()">+ GUARDAR</button>
+                    </div>
+
+                    <!-- Selector de modo -->
+                    <div class="mode-selector">
+                        <button class="mode-btn active" onclick="setMode(event, 3)">3v3</button>
+                        <button class="mode-btn" onclick="setMode(event, 4)">4v4</button>
+                        <button class="mode-btn" onclick="setMode(event, 5)">5v5</button>
+                    </div>
+
+                    <!-- SWITCH SELECTOR DE ROL (Solo ARAM) -->
+                    <div class="switch-container" id="aramRoleSwitch">
+                        <span class="switch-label">
+                            🎲 Selector de Rol (Todos mismo rol)
+                            <span class="help-icon"
+                                data-tooltip="Todos los jugadores juegan el mismo rol aleatorio (TOP/JUNGLA/MID/ADC/SUPP).">?</span>
+                        </span>
+                        <label class="switch">
+                            <input type="checkbox" id="aramRoleSelectorToggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <!-- SWITCH DRAFT ALEATORIO (Solo Grieta) -->
+                    <div class="switch-container hidden" id="grietaDraftSwitch">
+                        <span class="switch-label">
+                            🎯 Draft Aleatorio (Cada uno rol distinto)
+                            <span class="help-icon"
+                                data-tooltip="Cada jugador recibe un rol distinto al azar (TOP/JUNGLA/MID/ADC/SUPP).">?</span>
+                        </span>
+                        <label class="switch">
+                            <input type="checkbox" id="grietaDraftToggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <!-- MODO CAPITANES (Solo Grieta) -->
+                    <div class="hidden" id="grietaCaptainsSection">
+                        <div class="switch-container">
+                            <span class="switch-label">
+                                👑 Modo Capitanes
+                                <span class="help-icon"
+                                    data-tooltip="Dos capitanes se turnan para elegir a sus compañeros de equipo desde el lobby.">?</span>
+                            </span>
+                            <label class="switch">
+                                <input type="checkbox" id="captainsModeToggle" onchange="toggleCaptainsMode()">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="captains-mode hidden" id="captainsSelection">
+                            <h3 class="section-title">👑 SELECCIONA LOS CAPITANES</h3>
+                            <div class="captains-selection">
+                                <div class="captain-card blue">
+                                    <div class="captain-name">CAPITÁN AZUL 💙</div>
+                                    <div class="captain-select-wrapper blue">
+                                        <select id="blueCaptainSelect" onchange="selectCaptain('blue')">
+                                            <option value="">Seleccionar...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="captain-card red">
+                                    <div class="captain-name">CAPITÁN ROJO ❤️</div>
+                                    <div class="captain-select-wrapper red">
+                                        <select id="redCaptainSelect" onchange="selectCaptain('red')">
+                                            <option value="">Seleccionar...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Todos los jugadores guardados -->
+                    <h3 class="section-title">👥 JUGADORES GUARDADOS</h3>
+                    <div class="all-players" id="allPlayers">
+                        <!-- Saved players will appear here -->
+                    </div>
+
+                    <!-- Jugadores seleccionados para esta partida -->
+                    <h3 class="section-title">
+                        ⚔️ LOBBY ACTUAL 
+                        <span id="lobbyCounter" style="font-size: 0.9rem; color: #00ffff; margin-left: 10px;"></span>
+                    </h3>
+                    <div class="player-pool" id="playerPool">
+                        <div style="color: rgba(255,255,255,0.3); width: 100%; text-align: center;">
+                            Selecciona jugadores arriba...
+                        </div>
+                    </div>
+
+                    <button class="btn" style="width: 100%; margin-top: 20px;" onclick="generateTeams()">
+                        🎲 GENERAR EQUIPOS
+                    </button>
+
+                    <button class="btn btn-warning" style="width: 100%; margin-top: 10px;"
+                        onclick="confirmResetTournament()">
+                        📅 CERRAR LIGA 
+                    </button>
                 </div>
 
-                <!-- Selector de modo -->
-                <div class="mode-selector">
-                    <button class="mode-btn active" onclick="setMode(3)">3v3</button>
-                    <button class="mode-btn" onclick="setMode(4)">4v4</button>
-                    <button class="mode-btn" onclick="setMode(5)">5v5</button>
+                <div class="card">
+                    <h2 class="card-title">🏆 LIGA </h2>
+                    <table class="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>JUGADOR</th>
+                                <th>🏆 VICTORIAS</th>
+                                <th>🎮 PARTIDAS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboardBody">
+                            <tr>
+                                <td colspan="4" style="text-align: center; color: rgba(255,255,255,0.3);">Sin jugadores
+                                    en
+                                    la liga</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="teamsSection" class="hidden">
+                <!-- ANUNCIO DE ROL (Solo si está activo en ARAM) -->
+                <div class="role-announcement hidden" id="roleAnnouncement">
+                    <div class="role-announcement-title">🎲 ROL DE ESTA PARTIDA:</div>
+                    <div class="role-announcement-role" id="announcedRole">TOP</div>
                 </div>
 
-                <!-- Todos los jugadores guardados -->
-                <h3 class="section-title">👥 JUGADORES GUARDADOS</h3>
-                <div class="all-players" id="allPlayers">
-                    <!-- Saved players will appear here -->
-                </div>
+                <div class="teams-container">
+                    <div class="team blue">
+                        <h3 class="team-title">💙 EQUIPO AZUL</h3>
+                        <ul class="team-players" id="blueTeam"></ul>
+                    </div>
 
-                <!-- Jugadores seleccionados para esta partida -->
-                <h3 class="section-title">⚔️ LOBBY ACTUAL</h3>
-                <div class="player-pool" id="playerPool">
-                    <div style="color: rgba(255,255,255,0.3); width: 100%; text-align: center;">
-                        Selecciona jugadores arriba...
+                    <div class="team red">
+                        <h3 class="team-title">❤️ EQUIPO ROJO</h3>
+                        <ul class="team-players" id="redTeam"></ul>
                     </div>
                 </div>
 
-                <button class="btn" style="width: 100%; margin-top: 20px;" onclick="generateTeams()">
-                    🎲 GENERAR EQUIPOS
-                </button>
-
-                <button class="btn btn-warning" style="width: 100%; margin-top: 10px;"
-                    onclick="confirmResetTournament()">
-                    🔄 REINICIAR TORNEO
-                </button>
+                <div class="winner-btns">
+                    <button class="btn btn-success" onclick="declareWinner('blue')">
+                        GANÓ AZUL 💙
+                    </button>
+                    <button class="btn btn-danger" onclick="declareWinner('red')">
+                        GANÓ ROJO ❤️
+                    </button>
+                </div>
             </div>
 
-            <div class="card">
-                <h2 class="card-title">🏆 TABLA ACTUAL</h2>
-                <table class="leaderboard-table">
+            <!-- Historial de Torneos -->
+            <div class="card history-section">
+                <h2 class="card-title">📜 HISTORIAL DE TORNEOS</h2>
+                <table class="history-table">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>JUGADOR</th>
-                            <th>PUNTOS</th>
+                            <th>FECHA</th>
+                            <th>MODO</th>
+                            <th>🥇 PRIMERO</th>
+                            <th>🥈 SEGUNDO</th>
+                            <th>🥉 TERCERO</th>
+                            <th>PARTIDAS</th>
                         </tr>
                     </thead>
-                    <tbody id="leaderboardBody">
+                    <tbody id="historyBody">
                         <tr>
-                            <td colspan="3" style="text-align: center; color: rgba(255,255,255,0.3);">Sin jugadores en
-                                el torneo</td>
+                            <td colspan="6" style="text-align: center; color: rgba(255,255,255,0.3);">Sin torneos
+                                registrados</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-
-        <div id="teamsSection" class="hidden">
-            <div class="teams-container">
-                <div class="team blue">
-                    <h3 class="team-title">💙 EQUIPO AZUL</h3>
-                    <ul class="team-players" id="blueTeam"></ul>
-                </div>
-
-                <div class="team red">
-                    <h3 class="team-title">❤️ EQUIPO ROJO</h3>
-                    <ul class="team-players" id="redTeam"></ul>
-                </div>
-            </div>
-
-            <div class="winner-btns">
-                <button class="btn btn-success" onclick="declareWinner('blue')">
-                    GANÓ AZUL 💙
-                </button>
-                <button class="btn btn-danger" onclick="declareWinner('red')">
-                    GANÓ ROJO ❤️
-                </button>
-            </div>
-        </div>
-
-        <!-- Historial de Torneos -->
-        <div class="card history-section">
-            <h2 class="card-title">📜 HISTORIAL DE TORNEOS</h2>
-            <table class="history-table">
-                <thead>
-                    <tr>
-                        <th>FECHA</th>
-                        <th>🥇 PRIMERO</th>
-                        <th>🥈 SEGUNDO</th>
-                        <th>🥉 TERCERO</th>
-                        <th>PARTIDAS</th>
-                    </tr>
-                </thead>
-                <tbody id="historyBody">
-                    <tr>
-                        <td colspan="5" style="text-align: center; color: rgba(255,255,255,0.3);">Sin torneos
-                            registrados</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
     </div>
     <script>
-        const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxn_GndimS5u5kVmXdc0BNv4Zn-0ZifzjO3OGbHbZZUzHIBdOlo3zO-myRQoZG67Yj0uA/exec';
+        const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzYOOwof23WU8kQQEOlbew3YFNNYEJ25PlG9yPybaBTnuSxLhRz72EpQpEyphWTydG3LQ/exec';
 
         let allPlayers = {}; // Todos los jugadores guardados permanentemente
-        let tournamentPlayers = {}; // Jugadores del torneo actual con puntos
-        let selectedPlayers = []; // Jugadores seleccionados para lobby
+        let tournamentPlayers = {}; // Jugadores de la liga con puntos y partidas acumulativas (points, matches)
+        let selectedPlayers = []; // Jugadores seleccionados para lobby actual
         let mode = 3;
+        let gameMode = 'aram'; // 'aram' o 'grieta'
+        let lastModeUsed = null; // Para trackear cambios de modo y regenerar combinaciones
+        let lastGameModeUsed = null; // Para trackear cambios de gameMode
         let blueTeam = [];
         let redTeam = [];
         let allCombinations = [];
@@ -808,6 +1513,91 @@
         let currentCombinationIndex = 0;
         let tournamentHistory = [];
         let tournamentActive = false;
+        let totalMatchesPlayed = 0; // Contador global de partidas únicas jugadas (no suma por jugador)
+        let captainsMode = false;
+        let blueCaptain = null;
+        let redCaptain = null;
+        let currentRole = null; // Para ARAM cuando selector de rol está activo
+        let playerRoles = {}; // Para Grieta cuando draft está activo
+
+        // Variables para modo capitanes
+        let captainSelectionActive = false;
+        let currentTurn = 'blue'; // 'blue' o 'red'
+        let availablePlayersForPick = [];
+        let captainBlueTeam = [];
+        let captainRedTeam = [];
+
+        const ROLES = ['TOP', 'JUNGLA', 'MID', 'ADC', 'SUPP'];
+        const LOADING_MESSAGES = [
+            'Esto puede tardar un momento...',
+            'Esperando que Jaris atrape la mosca...',
+            'Aparecio otra más grande...',
+            'Esperando que Tierra termine el Hearthstone...',
+            'Apurando la cosa para que Martin no se arrepienta de jugar...',
+            'Alban terminando la tercera...',
+            'Forense chekeando cuerpos...'
+        ];
+        let loadingInterval = null;
+
+        // ========== SELECTOR DE MODO DE JUEGO ==========
+        function setGameMode(e, mode) {
+            // Si hay equipos mostrados, ocultarlos al cambiar de modo
+            const teamsSection = document.getElementById('teamsSection');
+            if (teamsSection && !teamsSection.classList.contains('hidden')) {
+                resetMatch();
+            }
+
+            gameMode = mode;
+
+            // Si cambió el gameMode, resetear combinaciones para regenerarlas
+            if (lastGameModeUsed !== null && lastGameModeUsed !== gameMode) {
+                allCombinations = [];
+                usedCombinations = [];
+                currentCombinationIndex = 0;
+            }
+            lastGameModeUsed = gameMode;
+
+            // Asegurar que los equipos estén ocultos y actualizar renderizado de jugadores
+            if (teamsSection) {
+                teamsSection.classList.add('hidden');
+            }
+            // Limpiar equipos actuales
+            blueTeam = [];
+            redTeam = [];
+            renderAllPlayers(); // Actualizar renderizado para quitar deshabilitados
+
+            // Actualizar botones activos
+            document.querySelectorAll('.game-mode-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            if (e && e.target) {
+                e.target.classList.add('active');
+            }
+
+            // Mostrar el contenido principal una vez seleccionado un modo
+            const mainContent = document.getElementById('mainContent');
+            if (mainContent) {
+                mainContent.classList.remove('hidden');
+            }
+
+            // Mostrar/ocultar opciones según el modo
+            if (mode === 'aram') {
+                document.getElementById('aramRoleSwitch').classList.remove('hidden');
+                document.getElementById('grietaDraftSwitch').classList.add('hidden');
+                document.getElementById('grietaCaptainsSection').classList.add('hidden');
+            } else {
+                document.getElementById('aramRoleSwitch').classList.add('hidden');
+                document.getElementById('grietaDraftSwitch').classList.remove('hidden');
+                document.getElementById('grietaCaptainsSection').classList.remove('hidden');
+            }
+
+            // Resetear toggles
+            document.getElementById('aramRoleSelectorToggle').checked = false;
+            document.getElementById('grietaDraftToggle').checked = false;
+            document.getElementById('captainsModeToggle').checked = false;
+            captainsMode = false;
+            document.getElementById('captainsSelection').classList.add('hidden');
+        }
 
         // ========== SISTEMA DE ALERTAS CUSTOM ==========
         function showAlert(title, message, buttons = [{ text: 'OK', action: null }]) {
@@ -843,11 +1633,43 @@
             if (action) action();
         }
 
+        // ========== LOADER GLOBAL ==========
+        function showLoading(title = 'Guardando datos', baseMessage = 'Esto puede tomar un momento...') {
+            const overlay = document.getElementById('loadingOverlay');
+            const titleEl = overlay.querySelector('.loading-title');
+            const messageEl = document.getElementById('loadingMessage');
+
+            titleEl.textContent = title;
+            let index = 0;
+            messageEl.textContent = baseMessage;
+
+            overlay.classList.remove('hidden');
+
+            if (loadingInterval) clearInterval(loadingInterval);
+            loadingInterval = setInterval(() => {
+                index = (index + 1) % LOADING_MESSAGES.length;
+                messageEl.textContent = LOADING_MESSAGES[index];
+            }, 2000);
+        }
+
+        function hideLoading() {
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.classList.add('hidden');
+            if (loadingInterval) {
+                clearInterval(loadingInterval);
+                loadingInterval = null;
+            }
+        }
+
         // ========== CARGAR DATOS DESDE GOOGLE SHEETS ==========
         async function loadData() {
             try {
+                showLoading('Cargando datos', 'Esto puede tomar un momento...');
+                console.log('📥 Cargando datos...');
                 const response = await fetch(SHEET_URL);
                 const data = await response.json();
+
+                console.log('📊 Datos recibidos:', data);
 
                 // Cargar jugadores guardados
                 if (data.players && data.players.length > 0) {
@@ -861,11 +1683,19 @@
                     });
                 }
 
-                // Cargar estado del torneo actual
+                // Cargar estado de la liga actual (puntos acumulativos)
                 if (data.tournament) {
                     tournamentPlayers = data.tournament.players || {};
+                    // Asegurar que todos los jugadores tengan matches si no lo tienen
+                    Object.keys(tournamentPlayers).forEach(nick => {
+                        if (!tournamentPlayers[nick].matches) {
+                            tournamentPlayers[nick].matches = 0;
+                        }
+                    });
                     usedCombinations = data.tournament.usedCombinations || [];
                     mode = data.tournament.mode || 3;
+                    gameMode = data.tournament.gameMode || 'aram';
+                    totalMatchesPlayed = data.tournament.totalMatchesPlayed || 0; // Cargar contador de partidas únicas
                     tournamentActive = Object.keys(tournamentPlayers).length > 0;
 
                     if (tournamentActive) {
@@ -885,6 +1715,7 @@
                 updateLeaderboard();
                 updateTournamentProgress();
                 updateHistory();
+                updateLobbyCounter();
 
                 // Setear modo activo
                 document.querySelectorAll('.mode-btn').forEach(btn => {
@@ -892,25 +1723,52 @@
                 });
                 document.querySelectorAll('.mode-btn')[mode - 3].classList.add('active');
 
+                // Inicializar tracking de modo
+                lastModeUsed = mode;
+                lastGameModeUsed = gameMode;
+
+                // Setear game mode solo si hay torneo activo,
+                // para que en un nuevo torneo el usuario tenga que elegir primero.
+                document.querySelectorAll('.game-mode-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                if (tournamentActive) {
+                    if (gameMode === 'aram') {
+                        document.querySelectorAll('.game-mode-btn')[0].classList.add('active');
+                        setGameMode(null, 'aram');
+                    } else {
+                        document.querySelectorAll('.game-mode-btn')[1].classList.add('active');
+                        setGameMode(null, 'grieta');
+                    }
+                }
+
             } catch (error) {
                 console.log('Error cargando datos:', error);
+            } finally {
+                hideLoading();
             }
         }
 
         // ========== GUARDAR EN GOOGLE SHEETS ==========
-        async function saveToSheet() {
+        // showLoader controla si se muestra el overlay de carga (true por defecto).
+        async function saveToSheet(showLoader = true) {
             try {
+                if (showLoader) {
+                    showLoading('Guardando datos', 'Esto puede tomar un momento...');
+                }
                 const data = {
                     players: Object.keys(allPlayers).map(nick => ({ nick })),
                     tournament: {
                         players: tournamentPlayers,
                         usedCombinations: usedCombinations,
-                        mode: mode
+                        mode: mode,
+                        gameMode: gameMode,
+                        totalMatchesPlayed: totalMatchesPlayed // Guardar contador de partidas únicas
                     },
                     history: tournamentHistory
                 };
 
-                console.log('📤 Enviando datos:', data); // Para ver qué enviamos
+                console.log('📤 Enviando datos:', data);
 
                 const response = await fetch(SHEET_URL + '?action=save', {
                     method: 'POST',
@@ -923,6 +1781,10 @@
             } catch (error) {
                 console.error('❌ Error guardando:', error);
                 showAlert('⚠️ ERROR', 'No se pudo guardar en Google Sheets. Revisa la consola.');
+            } finally {
+                if (showLoader) {
+                    hideLoading();
+                }
             }
         }
 
@@ -936,32 +1798,60 @@
                 return;
             }
 
-            container.innerHTML = players.map(nick => `
-        <div class="player-card ${selectedPlayers.includes(nick) ? 'selected' : ''} ${tournamentActive && !selectedPlayers.includes(nick) ? 'disabled' : ''}" 
-             onclick="${tournamentActive && !selectedPlayers.includes(nick) ? '' : `togglePlayer('${nick}')`}">
-            ${nick}
-            <div class="delete-btn" onclick="event.stopPropagation(); confirmDeletePlayer('${nick}')">✕</div>
-        </div>
-    `).join('');
+            // Solo deshabilitar jugadores si hay equipos mostrados (partida activa) o si el lobby está lleno
+            const teamsSection = document.getElementById('teamsSection');
+            const hasActiveMatch = teamsSection && !teamsSection.classList.contains('hidden');
+            const maxPlayers = mode * 2;
+            const isLobbyFull = selectedPlayers.length >= maxPlayers;
+
+            container.innerHTML = players.map(nick => {
+                const isSelected = selectedPlayers.includes(nick);
+                const isDisabled = (hasActiveMatch && !isSelected) || (isLobbyFull && !isSelected);
+                
+                return `
+                <div class="player-card ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}" 
+                     onclick="${isDisabled ? '' : `togglePlayer('${nick}')`}">
+                    ${nick}
+                    <div class="delete-btn" onclick="event.stopPropagation(); confirmDeletePlayer('${nick}')">✕</div>
+                </div>
+            `;
+            }).join('');
         }
 
         function togglePlayer(nick) {
-            if (tournamentActive) {
-                showAlert('⚠️ TORNEO ACTIVO', 'No puedes modificar el lobby durante un torneo en progreso.');
+            // Con liga semanal acumulativa, se puede modificar el lobby libremente
+            // Solo bloquear si hay equipos mostrados actualmente
+            const teamsSection = document.getElementById('teamsSection');
+            if (!teamsSection.classList.contains('hidden')) {
+                showAlert('⚠️ PARTIDA ACTIVA', 'Termina la partida actual antes de modificar el lobby.');
                 return;
             }
 
             if (selectedPlayers.includes(nick)) {
+                // Quitar jugador del lobby
                 selectedPlayers = selectedPlayers.filter(p => p !== nick);
-                delete tournamentPlayers[nick];
+                // NO eliminar de tournamentPlayers, mantener estadísticas acumulativas
             } else {
+                // Verificar límite de jugadores según el modo seleccionado
+                const maxPlayers = mode * 2; // 3v3 = 6, 4v4 = 8, 5v5 = 10
+                if (selectedPlayers.length >= maxPlayers) {
+                    showAlert('⚠️ LOBBY LLENO', `Ya tienes ${maxPlayers} jugadores seleccionados para el modo ${mode}v${mode}. Quita alguno para agregar otro.`);
+                    return;
+                }
+
                 selectedPlayers.push(nick);
-                tournamentPlayers[nick] = { points: 0 };
+                // Si el jugador no existe en la liga, inicializarlo con 0 victorias y 0 partidas
+                // Si ya existe, mantener sus estadísticas acumulativas
+                if (!tournamentPlayers[nick]) {
+                    tournamentPlayers[nick] = { points: 0, matches: 0 };
+                }
             }
 
             renderAllPlayers();
             renderPlayerPool();
             updateLeaderboard();
+            updateCaptainSelects();
+            updateLobbyCounter();
         }
 
         function renderPlayerPool() {
@@ -969,15 +1859,18 @@
 
             if (selectedPlayers.length === 0) {
                 pool.innerHTML = '<div style="color: rgba(255,255,255,0.3); width: 100%; text-align: center;">Selecciona jugadores arriba...</div>';
+                updateLobbyCounter();
                 return;
             }
 
             pool.innerHTML = selectedPlayers.map(p => `
-        <div class="player-tag">
-            <span>${p}</span>
-            <span class="remove" onclick="togglePlayer('${p}')">✕</span>
-        </div>
-    `).join('');
+                <div class="player-tag">
+                    <span>${p}</span>
+                    <span class="remove" onclick="togglePlayer('${p}')">✕</span>
+                </div>
+            `).join('');
+
+            updateLobbyCounter();
         }
 
         async function addNewPlayer() {
@@ -986,20 +1879,24 @@
 
             if (!nick) {
                 showAlert('⚠️ ERROR', 'Por favor escribe un nombre de jugador.');
+                input.focus();
                 return;
             }
 
             if (allPlayers[nick]) {
                 showAlert('⚠️ YA EXISTE', `El jugador "${nick}" ya está guardado.`);
+                input.focus();
                 return;
             }
 
             allPlayers[nick] = { exists: true };
 
-            await saveToSheet();
+            await saveToSheet(true);
 
             renderAllPlayers();
+            updateCaptainSelects();
             input.value = '';
+            input.focus();
 
             showAlert('✅ GUARDADO', `¡Jugador "${nick}" agregado exitosamente!`);
         }
@@ -1020,19 +1917,47 @@
             selectedPlayers = selectedPlayers.filter(p => p !== nick);
             delete tournamentPlayers[nick];
 
-            await saveToSheet();
+            await saveToSheet(true);
 
             renderAllPlayers();
             renderPlayerPool();
             updateLeaderboard();
+            updateCaptainSelects();
 
             showAlert('✅ ELIMINADO', `Jugador "${nick}" eliminado correctamente.`);
         }
 
+        // ========== ACTUALIZAR CONTADOR DE LOBBY ==========
+        function updateLobbyCounter() {
+            const counter = document.getElementById('lobbyCounter');
+            if (!counter) return;
+
+            const required = mode * 2;
+            const current = selectedPlayers.length;
+            let color = '#00ffff'; // Por defecto cyan
+            
+            if (current >= required) {
+                color = '#00ff88'; // Verde cuando está completo
+            } else if (current > 0) {
+                color = '#ffaa00'; // Naranja cuando tiene algunos pero no suficientes
+            }
+            
+            counter.textContent = `(${current}/${required})`;
+            counter.style.color = color;
+            
+            // Si el lobby está lleno, mostrar un indicador visual
+            if (current >= required) {
+                counter.textContent += ' ✓';
+            }
+        }
+
         // ========== SELECTOR DE MODO ==========
-        function setMode(newMode) {
-            if (tournamentActive) {
-                showAlert('⚠️ TORNEO ACTIVO', 'No puedes cambiar el modo durante un torneo en progreso.');
+        function setMode(e, newMode) {
+            // Con liga semanal acumulativa, se puede cambiar el tamaño libremente
+            // Solo bloquear si hay equipos mostrados actualmente
+            const teamsSection = document.getElementById('teamsSection');
+            if (!teamsSection.classList.contains('hidden')) {
+                showAlert('⚠️ PARTIDA ACTIVA', 'Termina la partida actual antes de cambiar el tamaño del equipo.');
                 return;
             }
 
@@ -1040,7 +1965,206 @@
             document.querySelectorAll('.mode-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.classList.add('active');
+            if (e && e.target) {
+                e.target.classList.add('active');
+            }
+
+            // Si cambió el modo, resetear combinaciones para regenerarlas
+            if (lastModeUsed !== null && lastModeUsed !== mode) {
+                allCombinations = [];
+                usedCombinations = [];
+                currentCombinationIndex = 0;
+            }
+            lastModeUsed = mode;
+
+            // Asegurar que los equipos estén ocultos y actualizar renderizado de jugadores
+            if (teamsSection) {
+                teamsSection.classList.add('hidden');
+            }
+            // Limpiar equipos actuales
+            blueTeam = [];
+            redTeam = [];
+            renderAllPlayers(); // Actualizar renderizado para quitar deshabilitados
+            updateLobbyCounter();
+        }
+
+        // ========== MODO CAPITANES ==========
+        function toggleCaptainsMode() {
+            captainsMode = document.getElementById('captainsModeToggle').checked;
+
+            if (captainsMode) {
+                document.getElementById('captainsSelection').classList.remove('hidden');
+                updateCaptainSelects();
+            } else {
+                document.getElementById('captainsSelection').classList.add('hidden');
+                blueCaptain = null;
+                redCaptain = null;
+
+                // Si se desactiva el modo capitanes en medio de una selección, cerrar la interfaz
+                if (captainSelectionActive) {
+                    document.getElementById('captainOverlay').classList.remove('show');
+                    document.getElementById('captainInterface').classList.add('hidden');
+                    captainSelectionActive = false;
+                }
+            }
+        }
+
+        function updateCaptainSelects() {
+            const blueSelect = document.getElementById('blueCaptainSelect');
+            const redSelect = document.getElementById('redCaptainSelect');
+
+            const options = '<option value="">Seleccionar...</option>' +
+                selectedPlayers.map(p => `<option value="${p}">${p}</option>`).join('');
+
+            blueSelect.innerHTML = options;
+            redSelect.innerHTML = options;
+
+            if (blueCaptain) blueSelect.value = blueCaptain;
+            if (redCaptain) redSelect.value = redCaptain;
+        }
+
+        function selectCaptain(team) {
+            const select = document.getElementById(team + 'CaptainSelect');
+            const captain = select.value;
+
+            if (team === 'blue') {
+                blueCaptain = captain;
+            } else {
+                redCaptain = captain;
+            }
+        }
+
+        // ========== INTERFAZ DE SELECCIÓN DE CAPITANES ==========
+        function startCaptainSelection() {
+            // Preparar jugadores disponibles (todos menos los capitanes)
+            availablePlayersForPick = selectedPlayers.filter(p => p !== blueCaptain && p !== redCaptain);
+
+            // Inicializar equipos con los capitanes
+            captainBlueTeam = [blueCaptain];
+            captainRedTeam = [redCaptain];
+
+            // Resetear turno
+            currentTurn = 'blue';
+
+            // Mostrar interfaz
+            document.getElementById('captainOverlay').classList.add('show');
+            document.getElementById('captainInterface').classList.remove('hidden');
+
+            captainSelectionActive = true;
+
+            updateCaptainInterface();
+        }
+
+        function updateCaptainInterface() {
+            // Actualizar indicador de turno
+            const turnIndicator = document.getElementById('turnIndicator');
+            const currentCaptainName = document.getElementById('currentCaptainName');
+
+            if (currentTurn === 'blue') {
+                turnIndicator.className = 'turn-indicator blue';
+                currentCaptainName.textContent = `Capitán Azul (${blueCaptain})`;
+            } else {
+                turnIndicator.className = 'turn-indicator red';
+                currentCaptainName.textContent = `Capitán Rojo (${redCaptain})`;
+            }
+
+            // Renderizar jugadores disponibles
+            const availableContainer = document.getElementById('availablePlayers');
+            if (availablePlayersForPick.length === 0) {
+                availableContainer.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: rgba(255,255,255,0.5); font-size: 1.2rem;">No quedan jugadores por elegir</div>';
+                document.getElementById('finishSelectionBtn').classList.remove('hidden');
+            } else {
+                availableContainer.innerHTML = availablePlayersForPick.map(player => `
+                    <div class="selectable-player" onclick="pickPlayer('${player}')">
+                        ${player}
+                    </div>
+                `).join('');
+            }
+
+            // Actualizar vista previa de equipos
+            document.getElementById('blueCaptainTeam').innerHTML = captainBlueTeam.map((p, i) => `
+                <li>⚔️ ${p} ${i === 0 ? '<span class="captain-badge">CAPITÁN</span>' : ''}</li>
+            `).join('');
+
+            document.getElementById('redCaptainTeam').innerHTML = captainRedTeam.map((p, i) => `
+                <li>⚔️ ${p} ${i === 0 ? '<span class="captain-badge">CAPITÁN</span>' : ''}</li>
+            `).join('');
+        }
+
+        function pickPlayer(player) {
+            // Agregar jugador al equipo del capitán actual
+            if (currentTurn === 'blue') {
+                captainBlueTeam.push(player);
+            } else {
+                captainRedTeam.push(player);
+            }
+
+            // Quitar jugador de disponibles
+            availablePlayersForPick = availablePlayersForPick.filter(p => p !== player);
+
+            // Cambiar turno
+            currentTurn = currentTurn === 'blue' ? 'red' : 'blue';
+
+            // Actualizar interfaz
+            updateCaptainInterface();
+        }
+
+        function finishCaptainSelection() {
+            // Asignar equipos finales
+            blueTeam = captainBlueTeam;
+            redTeam = captainRedTeam;
+
+            // Cerrar interfaz
+            document.getElementById('captainOverlay').classList.remove('show');
+            document.getElementById('captainInterface').classList.add('hidden');
+            captainSelectionActive = false;
+
+            // Mostrar equipos finales
+            displayFinalTeams();
+        }
+
+        function displayFinalTeams() {
+            // Asignar roles si draft está activo
+            if (gameMode === 'grieta' && document.getElementById('grietaDraftToggle').checked) {
+                const shuffledRoles = [...ROLES].sort(() => Math.random() - 0.5);
+                playerRoles = {};
+
+                blueTeam.forEach((player, index) => {
+                    playerRoles[player] = shuffledRoles[index];
+                });
+
+                const shuffledRoles2 = [...ROLES].sort(() => Math.random() - 0.5);
+                redTeam.forEach((player, index) => {
+                    playerRoles[player] = shuffledRoles2[index];
+                });
+
+                document.getElementById('blueTeam').innerHTML = blueTeam.map(p =>
+                    `<li><span>⚔️ ${p}</span><span class="player-role">${playerRoles[p]}</span></li>`
+                ).join('');
+                document.getElementById('redTeam').innerHTML = redTeam.map(p =>
+                    `<li><span>⚔️ ${p}</span><span class="player-role">${playerRoles[p]}</span></li>`
+                ).join('');
+            } else {
+                document.getElementById('blueTeam').innerHTML = blueTeam.map(p => `<li>⚔️ ${p}</li>`).join('');
+                document.getElementById('redTeam').innerHTML = redTeam.map(p => `<li>⚔️ ${p}</li>`).join('');
+            }
+
+            document.getElementById('teamsSection').classList.remove('hidden');
+
+            // Inicializar jugadores en la liga si no existen (mantener estadísticas acumulativas)
+            [...blueTeam, ...redTeam].forEach(player => {
+                if (!tournamentPlayers[player]) {
+                    tournamentPlayers[player] = { points: 0, matches: 0 };
+                }
+            });
+
+            // Guardar en combinaciones usadas (modo capitanes no usa combinaciones)
+            if (!tournamentActive) {
+                tournamentActive = true;
+            }
+
+            // Guardar en segundo plano sin bloquear la UI
+            saveToSheet(false);
         }
 
         // ========== SISTEMA DE COMBINACIONES ==========
@@ -1121,19 +2245,55 @@
                 return;
             }
 
-            if (!tournamentActive) {
-                // Iniciar nuevo torneo
-                tournamentActive = true;
+            // Validar modo capitanes
+            if (captainsMode && gameMode === 'grieta') {
+                if (!blueCaptain || !redCaptain) {
+                    showAlert('⚠️ FALTA CAPITÁN', 'Debes seleccionar ambos capitanes primero.');
+                    return;
+                }
+                if (blueCaptain === redCaptain) {
+                    showAlert('⚠️ ERROR', 'Los capitanes deben ser diferentes.');
+                    return;
+                }
+
+                // Iniciar selección por capitanes
+                if (!tournamentActive) {
+                    tournamentActive = true;
+                    // Inicializar jugadores si no existen, pero mantener estadísticas acumulativas
+                    selectedPlayers.forEach(p => {
+                        if (!tournamentPlayers[p]) {
+                            tournamentPlayers[p] = { points: 0, matches: 0 };
+                        }
+                    });
+                }
+
+                startCaptainSelection();
+                return;
+            }
+
+            // Si cambió el modo o gameMode, regenerar combinaciones
+            if (lastModeUsed !== mode || lastGameModeUsed !== gameMode) {
+                allCombinations = [];
                 usedCombinations = [];
                 currentCombinationIndex = 0;
-
-                // Resetear puntos
-                selectedPlayers.forEach(p => {
-                    tournamentPlayers[p] = { points: 0 };
-                });
-
-                generateAllCombinations();
+                lastModeUsed = mode;
+                lastGameModeUsed = gameMode;
             }
+
+            if (!tournamentActive) {
+                // Iniciar nueva sesión de partidas (las estadísticas son acumulativas)
+                tournamentActive = true;
+
+                // Inicializar jugadores si no existen, pero mantener estadísticas acumulativas
+                selectedPlayers.forEach(p => {
+                    if (!tournamentPlayers[p]) {
+                        tournamentPlayers[p] = { points: 0, matches: 0 };
+                    }
+                });
+            }
+
+            // Siempre regenerar combinaciones para asegurar que usan el modo actual
+            generateAllCombinations();
 
             const pool = document.getElementById('playerPool');
             pool.classList.add('shuffle-animation');
@@ -1143,37 +2303,94 @@
                 blueTeam = combo.blue;
                 redTeam = combo.red;
 
-                document.getElementById('blueTeam').innerHTML = blueTeam.map(p => `<li>⚔️ ${p}</li>`).join('');
-                document.getElementById('redTeam').innerHTML = redTeam.map(p => `<li>⚔️ ${p}</li>`).join('');
+                // Asignar roles según el modo
+                if (gameMode === 'aram' && document.getElementById('aramRoleSelectorToggle').checked) {
+                    // ARAM: Un solo rol para todos
+                    currentRole = ROLES[Math.floor(Math.random() * ROLES.length)];
+                    document.getElementById('roleAnnouncement').classList.remove('hidden');
+                    document.getElementById('announcedRole').textContent = currentRole;
+
+                    document.getElementById('blueTeam').innerHTML = blueTeam.map(p => `<li><span>⚔️ ${p}</span></li>`).join('');
+                    document.getElementById('redTeam').innerHTML = redTeam.map(p => `<li><span>⚔️ ${p}</span></li>`).join('');
+
+                } else if (gameMode === 'grieta' && document.getElementById('grietaDraftToggle').checked) {
+                    // GRIETA: Draft aleatorio - cada jugador un rol distinto
+                    const shuffledRoles = [...ROLES].sort(() => Math.random() - 0.5);
+                    playerRoles = {};
+
+                    blueTeam.forEach((player, index) => {
+                        playerRoles[player] = shuffledRoles[index];
+                    });
+
+                    const shuffledRoles2 = [...ROLES].sort(() => Math.random() - 0.5);
+                    redTeam.forEach((player, index) => {
+                        playerRoles[player] = shuffledRoles2[index];
+                    });
+
+                    document.getElementById('roleAnnouncement').classList.add('hidden');
+
+                    document.getElementById('blueTeam').innerHTML = blueTeam.map(p =>
+                        `<li><span>⚔️ ${p}</span><span class="player-role">${playerRoles[p]}</span></li>`
+                    ).join('');
+                    document.getElementById('redTeam').innerHTML = redTeam.map(p =>
+                        `<li><span>⚔️ ${p}</span><span class="player-role">${playerRoles[p]}</span></li>`
+                    ).join('');
+
+                } else {
+                    // Sin roles
+                    currentRole = null;
+                    playerRoles = {};
+                    document.getElementById('roleAnnouncement').classList.add('hidden');
+
+                    document.getElementById('blueTeam').innerHTML = blueTeam.map(p => `<li>⚔️ ${p}</li>`).join('');
+                    document.getElementById('redTeam').innerHTML = redTeam.map(p => `<li>⚔️ ${p}</li>`).join('');
+                }
 
                 document.getElementById('teamsSection').classList.remove('hidden');
                 pool.classList.remove('shuffle-animation');
 
                 updateTournamentProgress();
-                saveToSheet();
+                // Guardar en segundo plano sin mostrar loader (la generación de equipos debe ser instantánea)
+                saveToSheet(false);
             }, 500);
         }
 
         // ========== DECLARAR GANADOR ==========
         async function declareWinner(team) {
             const winners = team === 'blue' ? blueTeam : redTeam;
+            const losers = team === 'blue' ? redTeam : blueTeam;
             const teamElement = document.querySelector(`.team.${team}`);
 
             teamElement.classList.add('victory-animation');
 
+            // Sumar victoria a los ganadores
             winners.forEach(player => {
-                if (tournamentPlayers[player]) {
-                    tournamentPlayers[player].points += 1;
+                if (!tournamentPlayers[player]) {
+                    tournamentPlayers[player] = { points: 0, matches: 0 };
                 }
+                tournamentPlayers[player].points += 1;
+                tournamentPlayers[player].matches += 1;
             });
 
-            await saveToSheet();
+            // Sumar partida (sin victoria) a los perdedores
+            losers.forEach(player => {
+                if (!tournamentPlayers[player]) {
+                    tournamentPlayers[player] = { points: 0, matches: 0 };
+                }
+                tournamentPlayers[player].matches += 1;
+            });
+
+            // Incrementar contador global de partidas únicas (solo una vez por partida, no por jugador)
+            totalMatchesPlayed += 1;
+
+            await saveToSheet(true);
             updateLeaderboard();
             updateTournamentProgress();
 
             setTimeout(() => {
                 resetMatch();
                 teamElement.classList.remove('victory-animation');
+                renderAllPlayers(); // Actualizar renderizado para habilitar jugadores nuevamente
             }, 1000);
         }
 
@@ -1181,10 +2398,16 @@
         function updateLeaderboard() {
             const tbody = document.getElementById('leaderboardBody');
             const sorted = Object.entries(tournamentPlayers)
-                .sort((a, b) => b[1].points - a[1].points);
+                .sort((a, b) => {
+                    // Ordenar primero por victorias, luego por partidas (más partidas = mejor si empatan)
+                    if (b[1].points !== a[1].points) {
+                        return b[1].points - a[1].points;
+                    }
+                    return b[1].matches - a[1].matches;
+                });
 
             if (sorted.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="3" style="text-align: center; color: rgba(255,255,255,0.3);">Sin jugadores en el torneo</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: rgba(255,255,255,0.3);">Sin jugadores en la liga</td></tr>';
                 return;
             }
 
@@ -1194,73 +2417,112 @@
                 else if (index === 1) rankClass = 'silver';
                 else if (index === 2) rankClass = 'bronze';
 
+                const points = stats.points || 0;
+                const matches = stats.matches || 0;
+
                 return `
-            <tr>
-                <td class="rank ${rankClass}">${index + 1}</td>
-                <td>${nick}</td>
-                <td>${stats.points}</td>
-            </tr>
-        `;
+                    <tr>
+                        <td class="rank ${rankClass}">${index + 1}</td>
+                        <td>${nick}</td>
+                        <td>${points}</td>
+                        <td>${matches}</td>
+                    </tr>
+                `;
             }).join('');
         }
 
-        // ========== PROGRESO DEL TORNEO ==========
+        // ========== PROGRESO DE LA LIGA ==========
         function updateTournamentProgress() {
-            const progress = document.getElementById('tournamentProgress');
-
-            if (!tournamentActive || allCombinations.length === 0) {
-                progress.textContent = 'Sin torneo activo';
-                return;
-            }
-
-            progress.textContent = `🎮 Partida ${usedCombinations.length}/${allCombinations.length} combinaciones`;
+            const progressElement = document.getElementById('tournamentProgress');
+            if (!progressElement) return;
+            
+            // Calcular el número total de partidas jugadas
+            const matchCount = Math.max(
+                ...Object.values(tournamentPlayers).map(p => p.matches || 0),
+                0
+            );
+            
+            // Mostrar siempre el contador de partidas
+            progressElement.textContent = `Partidas de esta liga: ${matchCount}`;
+            
+            // Mantener el tooltip con información detallada
+            const totalWins = Object.values(tournamentPlayers).reduce((sum, player) => sum + (player.points || 0), 0);
+            const playerCount = Object.keys(tournamentPlayers).length;
+            
+            progressElement.title = `Modo: ${gameMode === 'aram' ? 'ARAM' : 'Grieta del Invocador'}\n` +
+                                 `Jugadores en el lobby: ${playerCount}\n` +
+                                 `Partidas jugadas: ${matchCount}\n` +
+                                 `Victorias totales: ${totalWins}`;
         }
 
-        // ========== REINICIAR TORNEO ==========
+        // ========== CERRAR LIGA  ==========
         function confirmResetTournament() {
-            if (!tournamentActive) {
-                showAlert('⚠️ SIN TORNEO', 'No hay ningún torneo activo para reiniciar.');
+            const playerCount = Object.keys(tournamentPlayers).length;
+            if (playerCount === 0) {
+                showAlert('⚠️ SIN JUGADORES', 'No hay jugadores en la liga para cerrar.');
                 return;
             }
 
             showAlert(
-                '⚠️ REINICIAR TORNEO',
-                '¿Guardar este torneo en el historial y comenzar uno nuevo?',
+                '📅 CERRAR LIGA ',
+                '¿Cerrar la liga y guardar en el historial?',
                 [
                     { text: 'CANCELAR', action: null },
-                    { text: 'REINICIAR', danger: true, action: resetTournament }
+                    { text: 'CERRAR LIGA', danger: true, action: resetTournament }
                 ]
             );
         }
 
         async function resetTournament() {
-            // Guardar en historial
+            // Guardar en historial con más detalles
             const sorted = Object.entries(tournamentPlayers)
-                .sort((a, b) => b[1].points - a[1].points);
+                .sort((a, b) => {
+                    if (b[1].points !== a[1].points) {
+                        return b[1].points - a[1].points;
+                    }
+                    return b[1].matches - a[1].matches;
+                });
 
             const top3 = sorted.slice(0, 3);
+            const totalPlayers = sorted.length;
 
             const historyEntry = {
                 date: new Date().toLocaleString('es-CL'),
-                first: top3[0] ? { nick: top3[0][0], points: top3[0][1].points } : null,
-                second: top3[1] ? { nick: top3[1][0], points: top3[1][1].points } : null,
-                third: top3[2] ? { nick: top3[2][0], points: top3[2][1].points } : null,
-                matches: `${usedCombinations.length}/${allCombinations.length}`
+                gameMode: 'Liga Semanal', // Ya no es solo ARAM o Grieta, es acumulativo
+                first: top3[0] ? {
+                    nick: top3[0][0],
+                    points: top3[0][1].points || 0,
+                    matches: top3[0][1].matches || 0
+                } : null,
+                second: top3[1] ? {
+                    nick: top3[1][0],
+                    points: top3[1][1].points || 0,
+                    matches: top3[1][1].matches || 0
+                } : null,
+                third: top3[2] ? {
+                    nick: top3[2][0],
+                    points: top3[2][1].points || 0,
+                    matches: top3[2][1].matches || 0
+                } : null,
+                matches: `${totalMatchesPlayed} partidas | ${totalPlayers} jugadores`
             };
 
             tournamentHistory.unshift(historyEntry);
 
-            // Resetear todo
+            // Resetear estadísticas para nueva semana
             tournamentPlayers = {};
             selectedPlayers = [];
             usedCombinations = [];
             currentCombinationIndex = 0;
             allCombinations = [];
             tournamentActive = false;
+            totalMatchesPlayed = 0; // Resetear contador de partidas únicas
             blueTeam = [];
             redTeam = [];
+            currentRole = null;
+            playerRoles = {};
 
-            await saveToSheet();
+            await saveToSheet(true);
 
             renderAllPlayers();
             renderPlayerPool();
@@ -1269,7 +2531,7 @@
             updateHistory();
             document.getElementById('teamsSection').classList.add('hidden');
 
-            showAlert('✅ TORNEO GUARDADO', '¡Torneo guardado en el historial! Puedes iniciar uno nuevo.');
+            showAlert('✅ LIGA CERRADA', '¡Liga semanal guardada en el historial!');
         }
 
         // ========== HISTORIAL ==========
@@ -1277,26 +2539,70 @@
             const tbody = document.getElementById('historyBody');
 
             if (tournamentHistory.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: rgba(255,255,255,0.3);">Sin torneos registrados</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: rgba(255,255,255,0.3);">Sin torneos registrados</td></tr>';
                 return;
             }
 
-            tbody.innerHTML = tournamentHistory.map(entry => `
-        <tr>
-            <td>${entry.date}</td>
-            <td>${entry.first ? `${entry.first.nick} (${entry.first.points})` : '-'}</td>
-            <td>${entry.second ? `${entry.second.nick} (${entry.second.points})` : '-'}</td>
-            <td>${entry.third ? `${entry.third.nick} (${entry.third.points})` : '-'}</td>
-            <td>${entry.matches}</td>
-        </tr>
-    `).join('');
+            tbody.innerHTML = tournamentHistory.map(entry => {
+                const firstStr = entry.first ? `${entry.first.nick} (${entry.first.points}🏆${entry.first.matches ? ` / ${entry.first.matches}🎮` : ''})` : '-';
+                const secondStr = entry.second ? `${entry.second.nick} (${entry.second.points}🏆${entry.second.matches ? ` / ${entry.second.matches}🎮` : ''})` : '-';
+                const thirdStr = entry.third ? `${entry.third.nick} (${entry.third.points}🏆${entry.third.matches ? ` / ${entry.third.matches}🎮` : ''})` : '-';
+                return `
+                <tr>
+                    <td>${entry.date}</td>
+                    <td>${entry.gameMode}</td>
+                    <td>${firstStr}</td>
+                    <td>${secondStr}</td>
+                    <td>${thirdStr}</td>
+                    <td>${entry.matches}</td>
+                </tr>
+            `;
+            }).join('');
         }
 
         // ========== RESET MATCH ==========
         function resetMatch() {
             blueTeam = [];
             redTeam = [];
+            currentRole = null;
+            playerRoles = {};
             document.getElementById('teamsSection').classList.add('hidden');
+        }
+
+        // ========== MANEJO DE TOOLTIPS ==========
+        function initTooltips() {
+            const tooltip = document.getElementById('helpTooltip');
+            const helpIcons = document.querySelectorAll('.help-icon');
+
+            helpIcons.forEach(icon => {
+                icon.addEventListener('mouseenter', (e) => {
+                    const text = icon.getAttribute('data-tooltip');
+                    if (!text) return;
+
+                    const rect = icon.getBoundingClientRect();
+                    tooltip.textContent = text;
+                    tooltip.classList.add('show');
+
+                    // Posicionar arriba del icono, centrado
+                    const tooltipRect = tooltip.getBoundingClientRect();
+                    const left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+                    const top = rect.top - tooltipRect.height - 10;
+
+                    // Ajustar si se sale por la izquierda o derecha
+                    let finalLeft = left;
+                    if (finalLeft < 10) finalLeft = 10;
+                    if (finalLeft + tooltipRect.width > window.innerWidth - 10) {
+                        finalLeft = window.innerWidth - tooltipRect.width - 10;
+                    }
+
+                    tooltip.style.left = finalLeft + 'px';
+                    tooltip.style.top = top + 'px';
+                });
+
+                icon.addEventListener('mouseleave', () => {
+                    tooltip.classList.remove('show');
+                });
+            });
         }
 
         // ========== EVENTOS ==========
@@ -1306,6 +2612,10 @@
 
         // ========== INICIALIZAR ==========
         loadData();
+        // Inicializar tooltips después de que se cargue el contenido
+        setTimeout(() => {
+            initTooltips();
+        }, 100);
     </script>
 </body>
 
